@@ -82,17 +82,10 @@ CXXFLAGS := -std=c++14 -fauto-inc-dec -fcompare-elim -fcprop-registers -fdce \
 -fno-protect-parens -fstack-arrays -fforward-propagate \
 -finline-functions-called-once -fmodulo-sched -fmodulo-sched-allow-regmoves \
 -fgcse-sm -fgcse-las -fconserve-stack $(INCDIRS) -iquote src -mthumb \
-<<<<<<< HEAD
 -mthumb-interwork -O2 -c -w -fno-enforce-eh-specs -ffor-scope \
 -fno-gnu-keywords -fno-nonansi-builtins -nostdinc++ -nodefaultlibs -nostdlib \
 -fno-common -mcpu=arm7tdmi -march=armv4t
 LDFLAGS  := -T $(DEVKITARM)/arm-none-eabi/lib/gba_cart.ld $(LIBDIRS)
-=======
--mthumb-interwork -O2 -c -w -fno-enforce-eh-specs -ffor-scope $(LIBDIRS) \
--fno-gnu-keywords -fno-nonansi-builtins -nostdinc++ -nodefaultlibs -nostdlib \
--fno-common -mcpu=arm7tdmi -march=armv4t -fno-exceptions
-LDFLAGS  := -T $(DEVKITARM)/arm-none-eabi/lib/gba_cart.ld
->>>>>>> 2c57ed90c91f060ab2fff84a258fd044823956cd
 GFXFLAGS := -m -ftb -fh!
 
 # use this for globbing onto sources
