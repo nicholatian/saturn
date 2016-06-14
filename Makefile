@@ -85,7 +85,7 @@ CXXFLAGS := -std=c++14 -fauto-inc-dec -fcompare-elim -fcprop-registers -fdce \
 -mthumb-interwork -O2 -c -w -fno-enforce-eh-specs -ffor-scope \
 -fno-gnu-keywords -fno-nonansi-builtins -nostdinc++ -nodefaultlibs -nostdlib \
 -fno-common -mcpu=arm7tdmi -march=armv4t
-LDFLAGS  := -T etc/gba_cart.ld $(LIBDIRS)
+LDFLAGS  := -T $(DEVKITARM)/arm-none-eabi/lib/gba_cart.ld $(LIBDIRS)
 GFXFLAGS := -m -ftb -fh!
 
 # use this for globbing onto sources

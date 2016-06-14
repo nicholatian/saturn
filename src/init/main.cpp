@@ -96,7 +96,7 @@ void saturn::MainloopT::begin( )
         {
             if(this->firstRun)
             {
-                // Insert calls to initialise things here, later
+                this->errSplash( saturn::ErrorT::BoundsError );
                 
                 this->firstRun = false;
                 
