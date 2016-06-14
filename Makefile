@@ -39,7 +39,8 @@ GAMEMAKER := 8J # “General Entertainment”
 CFILES   := $(shell find src/ -type f -name '*.c')
 CXXFILES := $(shell find src/ -type f -name '*.cpp')
 SFILES   := $(shell find src/ -type f -name '*.s')
-INCDIRS  := -I$(DEVKITPRO)/libgba/include -I$(DEVKITARM)/arm-none-eabi/include
+INCDIRS  := -I$(DEVKITARM)/arm-none-eabi/include \
+            -I$(DEVKITPRO)/libgba/include -I$(DEVKITPRO)/libnich/include
 LIBDIRS  := -L$(DEVKITARM)/arm-none-eabi/lib/thumb -L$(DEVKITPRO)/libgba/lib
 
 # System utilities
