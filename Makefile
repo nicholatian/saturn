@@ -39,15 +39,10 @@ GAMEMAKER := 8J # “General Entertainment”
 CFILES   := $(shell find src/ -type f -name '*.c')
 CXXFILES := $(shell find src/ -type f -name '*.cpp')
 SFILES   := $(shell find src/ -type f -name '*.s')
-<<<<<<< HEAD
 INCDIRS  := -I$(DEVKITARM)/arm-none-eabi/include \
             -I$(DEVKITPRO)/libgba/include -I$(DEVKITPRO)/libnich/include
 LIBDIRS  := -L$(DEVKITARM)/arm-none-eabi/lib/thumb -L$(DEVKITPRO)/libgba/lib \
             -L$(DEVKITARM)/lib/gcc/arm-none-eabi/5.3.0/thumb
-=======
-INCDIRS  := -I$(DEVKITPRO)/libgba/include -I$(DEVKITARM)/arm-none-eabi/include
-LIBDIRS  := -L$(DEVKITARM)/arm-none-eabi/lib/thumb -L$(DEVKITPRO)/libgba/lib
->>>>>>> 2c57ed90c91f060ab2fff84a258fd044823956cd
 
 # System utilities
 AS   := arm-none-eabi-as
