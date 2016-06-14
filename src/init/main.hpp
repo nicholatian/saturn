@@ -31,6 +31,30 @@
 #ifndef __SATURN_INIT_MAIN_HPP__
 #define __SATURN_INIT_MAIN_HPP__
 
-int main( );
+#include <gba/types.hpp>
+#include "misc/error.hpp"
+
+extern "C"
+{
+    int main( );
+}
+
+namespace saturn
+{
+    class MainloopT
+    {
+    public:
+        MainloopT( );
+        ~MainloopT( );
+        
+        void begin( );
+        
+    private:
+        ErrorT status;
+        bool   firstRun;
+        
+        void errSplash( ErrorT code );
+    }
+}
 
 #endif // __SATURN_INIT_MAIN_HPP__

@@ -29,8 +29,73 @@
 \*****************************************************************************/
 
 #include "init/main.hpp"
+#include "misc/error.hpp"
 
 int main( )
 {
+    saturn::MainloopT mainloop;
+    
+    mainloop->begin( );
+    
     return 0;
+}
+
+saturn::MainloopT::MainloopT( )
+{
+    this->status   = ErrorT::Success;
+    this->firstRun = true;
+}
+
+saturn::MainloopT::~MainloopT( )
+{
+    
+}
+
+saturn::MainloopT::begin( )
+{
+    try
+    {
+        for(;;)
+        {
+            if(this->firstRun)
+            {
+                // Insert calls to initialise things here, later
+                
+                this->firstRun = false;
+                
+                continue;
+            }
+            
+            // Add the usual calls here, later
+        }
+    }
+    catch(saturn::ErrorT err)
+    {
+        this->errSplash( err );
+        
+        bios_halt( );
+    }
+    catch(...)
+    {
+        bios_halt( );
+    }
+}
+
+saturn::MainloopT::errSplash( saturn::ErrorT err )
+{
+    u16 level = (u16)err;
+    
+    u16 vramFill = level | (level << 8u);
+    
+    for(u32 i = 0u; i < 0x9B00u; i += 1u)
+    {
+        ((u16*)MEM_VRAM)[i] = vramFill;
+    }
+    
+    for(u32 i = 0u; i < 0x10u; i += 1u)
+    {
+        MEM_PAL[i] = (&colourErrorPal)[i];
+    }
+    
+    REG_DISPCNT = REG_DISPCNT_MODE4 | REG_DISPCNT_BG2_ON;
 }
