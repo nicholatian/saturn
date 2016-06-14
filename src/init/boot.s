@@ -34,9 +34,10 @@
 @@ ROM jump opcode
 @@
 
-.globl j_rom_start
+.section .init
 .balign 4
 .arm
+.globl j_rom_start
 
 j_rom_start:
     

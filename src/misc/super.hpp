@@ -28,37 +28,37 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef __SATURN_INIT_MAIN_HPP__
-#define __SATURN_INIT_MAIN_HPP__
+#ifndef __SATURN_MISC_SUPER_HPP__
+#define __SATURN_MISC_SUPER_HPP__
 
 #include <gba/types.hpp>
-#include "misc/error.hpp"
 
-extern "C"
-{
-
-extern u16 colourErrorPal;
-
-int main( );
-
-}
+#define SATURN_INIT_SUPER_COUNTER_COUNT 8
+#define SATURN_INIT_SUPER_CB_COUNT 4
+#define SATURN_INIT_SUPER_VBLANK_CB_COUNT 2
 
 namespace saturn
 {
-    class MainloopT
+    class SuperT
     {
     public:
-        MainloopT( );
-        ~MainloopT( );
+        static void  setCallback( u32 index, void* function );
+        static void* getCallback( u32 index );
+        static void  clearCallback( u32 index );
         
-        void begin( );
+        static void  setVblankCallback( u32 index, void* function );
+        static void* getVblankCallback( u32 index );
+        static void  clearVblankCallback( u32 index );
+        
+        static u16 counter[SATURN_INIT_SUPER_COUNTER_COUNT];
         
     private:
-        ErrorT status;
-        bool   firstRun;
+        static void* callback[SATURN_INIT_SUPER_CB_COUNT];
+        static void* vblankCallback[SATURN_INIT_SUPER_VBLANK_CB_COUNT];
         
-        void errSplash( ErrorT code );
+        //static TaskStack* tasks;
+        
     };
 }
 
-#endif // __SATURN_INIT_MAIN_HPP__
+#endif // __SATURN_MISC_SUPER_HPP__

@@ -28,37 +28,30 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef __SATURN_INIT_MAIN_HPP__
-#define __SATURN_INIT_MAIN_HPP__
-
-#include <gba/types.hpp>
-#include "misc/error.hpp"
-
-extern "C"
-{
-
-extern u16 colourErrorPal;
-
-int main( );
-
-}
+#ifndef __SATURN_MISC_ERROR_HPP__
+#define __SATURN_MISC_ERROR_HPP__
 
 namespace saturn
 {
-    class MainloopT
+    enum class ErrorT : u8
     {
-    public:
-        MainloopT( );
-        ~MainloopT( );
-        
-        void begin( );
-        
-    private:
-        ErrorT status;
-        bool   firstRun;
-        
-        void errSplash( ErrorT code );
+        Success       = 0x0u, // Success, yay!
+        LogicError    = 0x1u, // Logical program failure
+        LengthError   = 0x2u, // Bad length (declaration)
+        Unassigned3   = 0x3u,
+        RangeError    = 0x4u, // Bad length (operation)
+        Unassigned5   = 0x5u,
+        Underflow     = 0x6u, // Floating point madness
+        Unassigned7   = 0x7u,
+        Overflow      = 0x8u, // Signed integer madness
+        HardwareFault = 0x9u, // Something bad happened outside software
+        StackOverflow = 0xAu, // Lower limit of the stack reached
+        BoundsError   = 0xBu, // Accessing memory regions that don’t exist
+        NullReference = 0xCu, // Dereferencing would lead to BIOS
+        HeapOverflow  = 0xDu, // All EWRAM is exhausted
+        UnassignedE   = 0xEu,
+        UnknownError  = 0xFu  // For when none of the others make sense
     };
 }
 
-#endif // __SATURN_INIT_MAIN_HPP__
+#endif // __SATURN_MISC_ERROR_HPP__

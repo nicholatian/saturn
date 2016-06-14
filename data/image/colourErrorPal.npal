@@ -1,0 +1,19 @@
+#!/usr/bin/env python3 util/pal2bin.py
+# Nicholatian Palette File (*.npal)
+
+0  = $$FFFFFF # White
+1  = $$3232C9 # Blue
+2  = $$326FC9 # Cerulean
+3  = $$32ABC9 # Turquoise
+4  = $$32C9AB # Teal
+5  = $$32C96F # Aqua green
+6  = $$32C932 # Green
+7  = $$6FC932 # Lime
+8  = $$ABC932 # Yellow-green
+9  = $$C9AB32 # Gold
+10 = $$C96F32 # Burnt orange
+11 = $$C93232 # Red
+12 = $$C9326F # Crimson
+13 = $$C932AB # Magenta
+14 = $$AB32C9 # Violet
+15 = $$6F32C9 # Indigo
