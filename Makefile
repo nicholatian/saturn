@@ -39,10 +39,15 @@ GAMEMAKER := 8J # “General Entertainment”
 CFILES   := $(shell find src/ -type f -name '*.c')
 CXXFILES := $(shell find src/ -type f -name '*.cpp')
 SFILES   := $(shell find src/ -type f -name '*.s')
+<<<<<<< HEAD
 INCDIRS  := -I$(DEVKITARM)/arm-none-eabi/include \
             -I$(DEVKITPRO)/libgba/include -I$(DEVKITPRO)/libnich/include
 LIBDIRS  := -L$(DEVKITARM)/arm-none-eabi/lib/thumb -L$(DEVKITPRO)/libgba/lib \
             -L$(DEVKITARM)/lib/gcc/arm-none-eabi/5.3.0/thumb
+=======
+INCDIRS  := -I$(DEVKITPRO)/libgba/include -I$(DEVKITARM)/arm-none-eabi/include
+LIBDIRS  := -L$(DEVKITARM)/arm-none-eabi/lib/thumb -L$(DEVKITPRO)/libgba/lib
+>>>>>>> 2c57ed90c91f060ab2fff84a258fd044823956cd
 
 # System utilities
 AS   := arm-none-eabi-as
@@ -82,10 +87,17 @@ CXXFLAGS := -std=c++14 -fauto-inc-dec -fcompare-elim -fcprop-registers -fdce \
 -fno-protect-parens -fstack-arrays -fforward-propagate \
 -finline-functions-called-once -fmodulo-sched -fmodulo-sched-allow-regmoves \
 -fgcse-sm -fgcse-las -fconserve-stack $(INCDIRS) -iquote src -mthumb \
+<<<<<<< HEAD
 -mthumb-interwork -O2 -c -w -fno-enforce-eh-specs -ffor-scope \
 -fno-gnu-keywords -fno-nonansi-builtins -nostdinc++ -nodefaultlibs -nostdlib \
 -fno-common -mcpu=arm7tdmi -march=armv4t
 LDFLAGS  := -T $(DEVKITARM)/arm-none-eabi/lib/gba_cart.ld $(LIBDIRS)
+=======
+-mthumb-interwork -O2 -c -w -fno-enforce-eh-specs -ffor-scope $(LIBDIRS) \
+-fno-gnu-keywords -fno-nonansi-builtins -nostdinc++ -nodefaultlibs -nostdlib \
+-fno-common -mcpu=arm7tdmi -march=armv4t -fno-exceptions
+LDFLAGS  := -T $(DEVKITARM)/arm-none-eabi/lib/gba_cart.ld
+>>>>>>> 2c57ed90c91f060ab2fff84a258fd044823956cd
 GFXFLAGS := -m -ftb -fh!
 
 # use this for globbing onto sources
