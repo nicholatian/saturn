@@ -41,7 +41,8 @@ CXXFILES := $(shell find src/ -type f -name '*.cpp')
 SFILES   := $(shell find src/ -type f -name '*.s')
 INCDIRS  := -I$(DEVKITARM)/arm-none-eabi/include \
             -I$(DEVKITPRO)/libgba/include -I$(DEVKITPRO)/libnich/include
-LIBDIRS  := -L$(DEVKITARM)/arm-none-eabi/lib/thumb -L$(DEVKITPRO)/libgba/lib
+LIBDIRS  := -L$(DEVKITARM)/arm-none-eabi/lib/thumb -L$(DEVKITPRO)/libgba/lib \
+            -L$(DEVKITARM)/lib/gcc/arm-none-eabi/5.3.0/thumb
 
 # System utilities
 AS   := arm-none-eabi-as
@@ -81,10 +82,10 @@ CXXFLAGS := -std=c++14 -fauto-inc-dec -fcompare-elim -fcprop-registers -fdce \
 -fno-protect-parens -fstack-arrays -fforward-propagate \
 -finline-functions-called-once -fmodulo-sched -fmodulo-sched-allow-regmoves \
 -fgcse-sm -fgcse-las -fconserve-stack $(INCDIRS) -iquote src -mthumb \
--mthumb-interwork -O2 -c -w -fno-enforce-eh-specs -ffor-scope $(LIBDIRS) \
+-mthumb-interwork -O2 -c -w -fno-enforce-eh-specs -ffor-scope \
 -fno-gnu-keywords -fno-nonansi-builtins -nostdinc++ -nodefaultlibs -nostdlib \
--fno-common -mcpu=arm7tdmi -march=armv4t -fno-exceptions
-LDFLAGS  := -T $(DEVKITARM)/arm-none-eabi/lib/gba_cart.ld
+-fno-common -mcpu=arm7tdmi -march=armv4t
+LDFLAGS  := -T etc/gba_cart.ld $(LIBDIRS)
 GFXFLAGS := -m -ftb -fh!
 
 # use this for globbing onto sources
@@ -402,8 +403,8 @@ assemble:
 link:
 	@$(LD) $(LDFLAGS) -e j_rom_start -o bin/$(PROGRAM).elf \
 	bin/code/init+boot.s.o bin/code/init+bios.s.o \
-	`find bin/code/ -type f -name '*.cpp.o'` \
-	`find bin/code/ -type f -name '*.c.o'` \
+	`find bin/code/ -type f -name '*.cpp.o'` -lstdc++ \
+	`find bin/code/ -type f -name '*.c.o'` -lgcc -lc -lsysbase -lc \
 	`find bin/data/ -type f -name '*.o'`
 
 fix:

@@ -51,7 +51,7 @@ namespace saturn
         HeapOverflow  = 0xDu, // All EWRAM is exhausted
         UnassignedE   = 0xEu,
         UnknownError  = 0xFu  // For when none of the others make sense
-    }
+    };
 }
 
 #endif // __SATURN_MISC_ERROR_HPP__

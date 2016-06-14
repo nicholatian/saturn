@@ -28,17 +28,37 @@
  *                                                                           * 
 \*****************************************************************************/
 
+#include <gba/biosfunc.hpp>
+#include <gba/memory.hpp>
+#include <gba/display.hpp>
 #include "init/main.hpp"
 #include "misc/error.hpp"
+
+
+
+/** ============================ F U N C T I O N ============================ *
+ * 
+ * TITLE:       Application entry point
+ * DESCRIPTION: Declares the mainloop singleton, and begins its execution.
+ * RETURNS:     Always 0.
+ */
 
 int main( )
 {
     saturn::MainloopT mainloop;
     
-    mainloop->begin( );
+    mainloop.begin( );
     
     return 0;
 }
+
+
+
+/** ============================ F U N C T I O N ============================ *
+ * 
+ * TITLE:       Mainloop singleton constructor
+ * DESCRIPTION: Initialises object variables for use by the mainloop.
+ */
 
 saturn::MainloopT::MainloopT( )
 {
@@ -46,12 +66,29 @@ saturn::MainloopT::MainloopT( )
     this->firstRun = true;
 }
 
+
+
+/** ============================ F U N C T I O N ============================ *
+ * 
+ * TITLE:       Mainloop singleton destructor
+ * DESCRIPTION: Currently an empty stub.
+ */
+
 saturn::MainloopT::~MainloopT( )
 {
     
 }
 
-saturn::MainloopT::begin( )
+
+
+/** ============================ F U N C T I O N ============================ *
+ * 
+ * TITLE:       The main loop executive
+ * DESCRIPTION: Contains all of the code required to run the main loop.
+ *              NOTE: This function will not return.
+ */
+
+void saturn::MainloopT::begin( )
 {
     try
     {
@@ -81,7 +118,18 @@ saturn::MainloopT::begin( )
     }
 }
 
-saturn::MainloopT::errSplash( saturn::ErrorT err )
+
+
+/** ============================ F U N C T I O N ============================ *
+ * 
+ * TITLE:       Error splash screen loader
+ * DESCRIPTION: Fills the screen with a particular colour based on an error
+ *              code given, numbered 1 through 15 in the enum `saturn:ErrorT`.
+ * PARAMETER:   The error status given. This corresponds to the colour that the
+ *              screen will be filled with, so take note.
+ */
+
+void saturn::MainloopT::errSplash( saturn::ErrorT err )
 {
     u16 level = (u16)err;
     
@@ -97,5 +145,5 @@ saturn::MainloopT::errSplash( saturn::ErrorT err )
         MEM_PAL[i] = (&colourErrorPal)[i];
     }
     
-    REG_DISPCNT = REG_DISPCNT_MODE4 | REG_DISPCNT_BG2_ON;
+    REG_DISPCNT = REG_DISPCNT_BGMODE4 | REG_DISPCNT_BG2_ON;
 }

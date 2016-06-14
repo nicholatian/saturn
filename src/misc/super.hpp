@@ -28,8 +28,10 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef __SATURN_INIT_SUPER_HPP__
-#define __SATURN_INIT_SUPER_HPP__
+#ifndef __SATURN_MISC_SUPER_HPP__
+#define __SATURN_MISC_SUPER_HPP__
+
+#include <gba/types.hpp>
 
 #define SATURN_INIT_SUPER_COUNTER_COUNT 8
 #define SATURN_INIT_SUPER_CB_COUNT 4
@@ -40,13 +42,13 @@ namespace saturn
     class SuperT
     {
     public:
-        static void setCallback( u32 index );
-        static void getCallback( u32 index );
-        static void clearCallback( u32 index );
+        static void  setCallback( u32 index, void* function );
+        static void* getCallback( u32 index );
+        static void  clearCallback( u32 index );
         
-        static void setVblankCallback( u32 index );
-        static void getVblankCallback( u32 index );
-        static void clearVblankCallback( u32 index );
+        static void  setVblankCallback( u32 index, void* function );
+        static void* getVblankCallback( u32 index );
+        static void  clearVblankCallback( u32 index );
         
         static u16 counter[SATURN_INIT_SUPER_COUNTER_COUNT];
         
@@ -59,4 +61,4 @@ namespace saturn
     };
 }
 
-#endif // __SATURN_INIT_SUPER_HPP__
+#endif // __SATURN_MISC_SUPER_HPP__

@@ -28,37 +28,95 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef __SATURN_INIT_MAIN_HPP__
-#define __SATURN_INIT_MAIN_HPP__
-
-#include <gba/types.hpp>
+#include "misc/super.hpp"
 #include "misc/error.hpp"
 
-extern "C"
+u16   saturn::SuperT::counter[SATURN_INIT_SUPER_COUNTER_COUNT];
+void* saturn::SuperT::callback[SATURN_INIT_SUPER_CB_COUNT];
+void* saturn::SuperT::vblankCallback[SATURN_INIT_SUPER_VBLANK_CB_COUNT];
+
+void saturn::SuperT::setCallback( u32 index, void* function )
 {
-
-extern u16 colourErrorPal;
-
-int main( );
-
-}
-
-namespace saturn
-{
-    class MainloopT
+    if(index < SATURN_INIT_SUPER_CB_COUNT)
     {
-    public:
-        MainloopT( );
-        ~MainloopT( );
-        
-        void begin( );
-        
-    private:
-        ErrorT status;
-        bool   firstRun;
-        
-        void errSplash( ErrorT code );
-    };
+        saturn::SuperT::callback[index] = function;
+    }
+    else
+    {
+        throw saturn::ErrorT::RangeError;
+    }
 }
 
-#endif // __SATURN_INIT_MAIN_HPP__
+void* saturn::SuperT::getCallback( u32 index )
+{
+    if(index < SATURN_INIT_SUPER_CB_COUNT)
+    {
+        if(saturn::SuperT::callback[index] != nullptr)
+        {
+            return saturn::SuperT::callback[index];
+        }
+        else
+        {
+            throw saturn::ErrorT::NullReference;
+        }
+    }
+    else
+    {
+        throw saturn::ErrorT::RangeError;
+    }
+}
+
+void saturn::SuperT::clearCallback( u32 index )
+{
+    if(index < SATURN_INIT_SUPER_CB_COUNT)
+    {
+        saturn::SuperT::callback[index] = nullptr;
+    }
+    else
+    {
+        throw saturn::ErrorT::RangeError;
+    }
+}
+
+void saturn::SuperT::setVblankCallback( u32 index, void* function )
+{
+    if(index < SATURN_INIT_SUPER_VBLANK_CB_COUNT)
+    {
+        saturn::SuperT::vblankCallback[index] = function;
+    }
+    else
+    {
+        throw saturn::ErrorT::RangeError;
+    }
+}
+
+void* saturn::SuperT::getVblankCallback( u32 index )
+{
+    if(index < SATURN_INIT_SUPER_VBLANK_CB_COUNT)
+    {
+        if(saturn::SuperT::vblankCallback[index] != nullptr)
+        {
+            return saturn::SuperT::callback[index];
+        }
+        else
+        {
+            throw saturn::ErrorT::NullReference;
+        }
+    }
+    else
+    {
+        throw saturn::ErrorT::RangeError;
+    }
+}
+
+void saturn::SuperT::clearVblankCallback( u32 index )
+{
+    if(index < SATURN_INIT_SUPER_VBLANK_CB_COUNT)
+    {
+        saturn::SuperT::vblankCallback[index] = nullptr;
+    }
+    else
+    {
+        throw saturn::ErrorT::RangeError;
+    }
+}
