@@ -39,10 +39,6 @@ GAMEMAKER := 8J # “General Entertainment”
 CFILES   := $(shell find src/ -type f -name '*.c')
 CXXFILES := $(shell find src/ -type f -name '*.cpp')
 SFILES   := $(shell find src/ -type f -name '*.s')
-INCDIRS  := -I$(DEVKITARM)/arm-none-eabi/include \
-            -I$(DEVKITPRO)/libgba/include -I$(DEVKITPRO)/libnich/include
-LIBDIRS  := -L$(DEVKITARM)/arm-none-eabi/lib/thumb -L$(DEVKITPRO)/libgba/lib \
-            -L$(DEVKITARM)/lib/gcc/arm-none-eabi/5.3.0/thumb
 
 # System utilities
 AS   := arm-none-eabi-as
@@ -61,7 +57,7 @@ PAL2BIN := $(PY) util/pal2bin.py
 NAMEMOD := $(PY) util/namemod.py
 
 SFLAGS   := -acd -mcpu=arm7tdmi -march=armv4t -mthumb -mthumb-interwork -I \
-$(INCLUDEDIR) -mlittle-endian -EL --fix-v4bx -meabi=5 -mapcs-32
+-mlittle-endian -EL --fix-v4bx -meabi=5 -mapcs-32
 CXXFLAGS := -std=c++14 -fauto-inc-dec -fcompare-elim -fcprop-registers -fdce \
 -fdefer-pop -fdelayed-branch -fdse -fguess-branch-probability \
 -fif-conversion2 -fif-conversion -fipa-pure-const -fipa-profile \
@@ -81,11 +77,11 @@ CXXFLAGS := -std=c++14 -fauto-inc-dec -fcompare-elim -fcprop-registers -fdce \
 -ftree-slp-vectorize -fvect-cost-model -fipa-cp-clone -ffast-math \
 -fno-protect-parens -fstack-arrays -fforward-propagate \
 -finline-functions-called-once -fmodulo-sched -fmodulo-sched-allow-regmoves \
--fgcse-sm -fgcse-las -fconserve-stack $(INCDIRS) -iquote src -mthumb \
--mthumb-interwork -O2 -c -w -fno-enforce-eh-specs -ffor-scope \
--fno-gnu-keywords -fno-nonansi-builtins -nostdinc++ -nodefaultlibs -nostdlib \
--fno-common -mcpu=arm7tdmi -march=armv4t
-LDFLAGS  := -T $(DEVKITARM)/arm-none-eabi/lib/gba_cart.ld $(LIBDIRS)
+-fgcse-sm -fgcse-las -fconserve-stack -iquote src -mthumb -mthumb-interwork \
+-O2 -c -w -fno-enforce-eh-specs -ffor-scope -fno-gnu-keywords \
+-fno-nonansi-builtins -nostdinc++ -nodefaultlibs -nostdlib -fno-common \
+-mcpu=arm7tdmi -march=armv4t
+LDFLAGS  := -T $(DEVKITARM)/arm-none-eabi/lib/gba_cart.ld
 GFXFLAGS := -m -ftb -fh!
 
 # use this for globbing onto sources
@@ -402,9 +398,7 @@ assemble:
 
 link:
 	@$(LD) $(LDFLAGS) -e j_rom_start -o bin/$(PROGRAM).elf \
-	bin/code/init+boot.s.o bin/code/init+bios.s.o \
-	`find bin/code/ -type f -name '*.cpp.o'` -lstdc++ \
-	`find bin/code/ -type f -name '*.c.o'` -lgcc -lc -lsysbase -lc \
+	`find bin/code/ -type f -name '*.s.o'` \
 	`find bin/data/ -type f -name '*.o'`
 
 fix:
