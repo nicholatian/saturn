@@ -1,12 +1,15 @@
 # Saturn
 
-___A low-level, general purpose application framework for the Nintendo GBA___
+![Saturn banner](https://i.imgur.com/x8YdcdF.png)
 
-## About the project
+___A general-purpose game engine for the Nintendo® Game Boy Advance™___
 
-__Saturn__ aims at providing the bare necessities for all sorts of projects
-built on the _Game Boy Advance._ It is written in C++, and will provide a nice
-object-oriented interface for manipulating the GBA’s hardware with ease.
+## About
+
+__Saturn__ aims at providing a plethora of functionality and toolsets for
+building 2D video games on the _Nintendo Game Boy Advance._ It is written in a
+mixture of C, C++ and assembly, and will provide an Entity–Component–System
+framework for building applications.
 
 Here is a short list of some of the things Saturn hopes to provide:
 
@@ -15,8 +18,13 @@ Here is a short list of some of the things Saturn hopes to provide:
 - A mainloop complete with a modifiable set of purposed callbacks
 - A console interface that switches between input and output upon Select
 - More abstractions for key input, sound, and link cable networking
+- a dual-mode topdown graphics layout, either on a grid or unrestricted, plus a
+  sidescrolling platformer layout
+- A collection of PC utilities that help make creating Saturn projects easier
+- A fully automated and distributed build system used to build GBA titles as
+  well as the engine itself
 
-## Free software
+## Free Software
 
 Saturn is Free Software. That means you can distribute, modify, and use it in
 any way you please, without restriction. To be specific, Saturn is released
