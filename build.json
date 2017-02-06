@@ -1,0 +1,96 @@
+{
+    "title": "SATURN ENGINE",
+    "lang": "E",
+    "code": "ST",
+    "library": true,
+    "debug": true,
+    "srcDirs": [
+        "src"
+    ],
+    "includes": {
+        "system": [
+            "include"
+        ],
+        "local": [
+            "include/saturn",
+            "src"
+        ]
+    },
+    "libraries": {
+        "dirs": [
+            
+        ],
+        "files": [
+            
+        ]
+    },
+    "resource": {
+        "imageDirs": {
+            "tiled":  {
+                "unc": {
+                    "1bpp": [],
+                    "2bpp": [],
+                    "4bpp": [],
+                    "8bpp": []
+                },
+                "lz77": {
+                    "1bpp": [],
+                    "2bpp": [],
+                    "4bpp": [],
+                    "8bpp": []
+                },
+                "huff": {
+                    "1bpp": [],
+                    "2bpp": [],
+                    "4bpp": [],
+                    "8bpp": []
+                },
+                "rle": {
+                    "1bpp": [],
+                    "2bpp": [],
+                    "4bpp": [],
+                    "8bpp": []
+                }
+            },
+            "bitmap": {
+                "unc": {
+                    "1bpp":  [],
+                    "2bpp":  [],
+                    "4bpp":  [],
+                    "8bpp":  [],
+                    "16bpp": []
+                },
+                "lz77": {
+                    "1bpp":  [],
+                    "2bpp":  [],
+                    "4bpp":  [],
+                    "8bpp":  [],
+                    "16bpp": []
+                },
+                "huff": {
+                    "1bpp":  [],
+                    "2bpp":  [],
+                    "4bpp":  [],
+                    "8bpp":  [],
+                    "16bpp": []
+                },
+                "rle": {
+                    "1bpp":  [],
+                    "2bpp":  [],
+                    "4bpp":  [],
+                    "8bpp":  [],
+                    "16bpp": []
+                }
+            }
+        },
+        "textDirs": [
+            
+        ],
+        "npalDirs": [
+            
+        ],
+        "blobDirs": [
+            
+        ]
+    }
+}
