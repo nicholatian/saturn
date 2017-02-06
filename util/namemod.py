@@ -12,7 +12,7 @@
 ##   "Y8888P"   d88P     888     888      "Y88888P"  888   T88b 888    Y888  ##
 ##                                                                           ##
 ##                                  Saturn                                   ##
-##  A low-level, general purpose application framework for the Nintendo GBA  ##
+##     A general-purpose game engine for the Nintendo® Game Boy Advance™     ##
 ##                                                                           ##
 ##                       Copyright © 2016  Nicholatian                       ##
 ##                                                                           ##
