@@ -38,60 +38,60 @@
 extern "C"
 {
 
-extern void bios_soft_reset( );
+void bios_soft_reset( );
 
-extern void bios_register_ram_reset( u32 flags );
+void bios_register_ram_reset( u32 flags );
 
-extern void bios_halt( );
+void bios_halt( );
 
-extern void bios_stop( );
+void bios_stop( );
 
-extern void bios_intr_wait( u32 flag_clear, u32 irq );
+void bios_intr_wait( u32 flag_clear, u32 irq );
 
-extern void bios_vblank_intr_wait( );
+void bios_vblank_intr_wait( );
 
-extern void bios_div( s32 num, s32 den );
+void bios_div( s32 num, s32 den );
 
-extern void bios_div_arm( s32 den, s32 num );
+void bios_div_arm( s32 den, s32 num );
 
-extern void bios_sqrt( u32 num );
+void bios_sqrt( u32 num );
 
-extern void bios_arc_tan( s16 dydx );
+void bios_arc_tan( s16 dydx );
 
-extern void bios_arc_tan2( s16 x, s16 y );
+void bios_arc_tan2( s16 x, s16 y );
 
-extern void bios_cpu_set( const void* src, void* dst, u32 mode );
+void bios_cpu_set( const void* src, void* dst, u32 mode );
 
-extern void bios_cpu_fast_set( const void* src, void* dst, u32 mode );
+void bios_cpu_fast_set( const void* src, void* dst, u32 mode );
 
-extern void bios_bg_affine_set( const void* src, void* dst, s32 num );
+void bios_bg_affine_set( const void* src, void* dst, s32 num );
 
-extern void bios_obj_affine_set( const void* src, void* dst, s32 num,
+void bios_obj_affine_set( const void* src, void* dst, s32 num,
     s32 offset );
 
-extern void bios_bit_unpack( const void* src, void* dst, void* bup );
+void bios_bit_unpack( const void* src, void* dst, void* bup );
 
-extern void bios_lzss_decomp_wram( const void* src, void* dst );
+void bios_lzss_decomp_wram( const void* src, void* dst );
 
-extern void bios_lzss_decomp_vram( const void* src, void* dst );
+void bios_lzss_decomp_vram( const void* src, void* dst );
 
-extern void bios_huff_decomp( const void* src, void* dst );
+void bios_huff_decomp( const void* src, void* dst );
 
-extern void bios_rl_decomp_wram( const void* src, void* dst );
+void bios_rl_decomp_wram( const void* src, void* dst );
 
-extern void bios_rl_decomp_vram( const void* src, void* dst );
+void bios_rl_decomp_vram( const void* src, void* dst );
 
-extern void bios_diff_8bit_unfilter_wram( const void* src, void* dst );
+void bios_diff_8bit_unfilter_wram( const void* src, void* dst );
 
-extern void bios_diff_8bit_unfilter_vram( const void* src, void* dst );
+void bios_diff_8bit_unfilter_vram( const void* src, void* dst );
 
-extern void bios_diff_16bit_unfilter( const void* src, void* dst );
+void bios_diff_16bit_unfilter( const void* src, void* dst );
 
-extern void bios_sound_bias( u32 bias );
+void bios_sound_bias( u32 bias );
 
-extern void bios_midi_key_to_freq( void* wa, u8 mk, u8 fp );
+void bios_midi_key_to_freq( void* wa, u8 mk, u8 fp );
 
-extern void bios_multi_boot( void* mb_param, u32 mode );
+void bios_multi_boot( void* mb_param, u32 mode );
 
 }
 
