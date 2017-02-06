@@ -4,12 +4,11 @@ node_modules/
 *.tar*
 *.zip
 *.log
-*.gba
 *.o
 *.out
 *.elf
 *.bin
-*.gba.*
+*.gba*
 *.pyc
 *.nlz
 *.psd
@@ -17,6 +16,8 @@ node_modules/
 *.bmp
 *.patch
 *.exe
+*.a
+*.so
 
 
 
