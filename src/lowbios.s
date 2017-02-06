@@ -10,7 +10,7 @@
 @@   "Y8888P"   d88P     888     888      "Y88888P"  888   T88b 888    Y888  @@
 @@                                                                           @@
 @@                                   Saturn                                  @@
-@@                 A minimal kernel for the Game Boy Advance                 @@
+@@     A general-purpose game engine for the Nintendo® Game Boy Advance™     @@
 @@                                                                           @@
 @@                       Copyright © 2016  Nicholatian                       @@
 @@                                                                           @@
@@ -32,13 +32,13 @@
 .ident "AS: (devkitARM release 45) 2.25.1"
 
 .section .text
-.balign   2
+.balign  2, 0
 .code    16
 
 @ === SoftReset [00h] =================================================
 @ DECL: void bios_soft_reset();
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_soft_reset
 .thumb_func
 
@@ -49,7 +49,7 @@ bios_soft_reset:
 @ === RegisterRamReset [01h] ==========================================
 @ DECL: void bios_register_ram_reset(u32 flags);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_register_ram_reset
 .thumb_func
 
@@ -60,7 +60,7 @@ bios_register_ram_reset:
 @ === Halt [02h] ======================================================
 @ DECL: void bios_halt();
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_halt
 .thumb_func
 
@@ -71,7 +71,7 @@ bios_halt:
 @ === Stop [03h] ======================================================
 @ DECL: void bios_stop();
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_stop
 .thumb_func
 
@@ -82,7 +82,7 @@ bios_stop:
 @ === IntrWait [04h] ==================================================
 @ DECL: void bios_intr_wait(u32 flagClear, u32 irq);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_intr_wait
 .thumb_func
 
@@ -93,7 +93,7 @@ bios_intr_wait:
 @ === VBlankIntrWait [05h] ============================================
 @ DECL: void bios_vblank_intr_wait();
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_vblank_intr_wait
 .thumb_func
 
@@ -104,7 +104,7 @@ bios_vblank_intr_wait:
 @ === Div [06h] =======================================================
 @ DECL: s32 bios_div(s32 num, s32 den);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_div
 .thumb_func
 
@@ -115,7 +115,7 @@ bios_div:
 @ === DivArm [07h] ====================================================
 @ DECL: s32 bios_div_arm(s32 den, s32 num);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_div_arm
 .thumb_func
 
@@ -126,7 +126,7 @@ bios_div_arm:
 @ === Sqrt [08h] ======================================================
 @ DECL: u32 bios_sqrt(u32 num);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_sqrt
 .thumb_func
 
@@ -137,7 +137,7 @@ bios_sqrt:
 @ === ArcTan [09h] ====================================================
 @ DECL: s16 bios_arc_tan(s16 dydx);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_arc_tan
 .thumb_func
 
@@ -148,7 +148,7 @@ bios_arc_tan:
 @ === ArcTan2 [0Ah] ===================================================
 @ DECL: s16 bios_arc_tan2(s16 x, s16 y);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_arc_tan2
 .thumb_func
 
@@ -159,7 +159,7 @@ bios_arc_tan2:
 @ === CpuSet [0Bh] ====================================================
 @ DECL: void bios_cpu_set(const void *src, void *dst, u32 mode);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_cpu_set
 .thumb_func
 
@@ -170,7 +170,7 @@ bios_cpu_set:
 @ === CpuFastSet [0Ch] ================================================
 @ DECL: void bios_cpu_fast_set(const void *src, void *dst, u32 mode);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_cpu_fast_set
 .thumb_func
 
@@ -181,7 +181,7 @@ bios_cpu_fast_set:
 @ === BgAffineSet [0Eh] ===============================================
 @ DECL: void bios_bg_affine_set(const BgAffineSource *src, BgAffineDest *dst, s32 num);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_bg_affine_set
 .thumb_func
 
@@ -192,7 +192,7 @@ bios_bg_affine_set:
 @ === ObjAffineSet [0Fh] ==============================================
 @ DECL: void bios_obj_affine_set(const ObjAffineSource *src, void *dst, s32 num, s32 offset);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_obj_affine_set
 .thumb_func
 
@@ -203,7 +203,7 @@ bios_obj_affine_set:
 @ === BitUnPack [10h] =================================================
 @ DECL: void bios_bit_unpack(const void *src, void *dst, BUP *bup);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_bit_unpack
 .thumb_func
 
@@ -214,7 +214,7 @@ bios_bit_unpack:
 @ === LZ77UnCompWram [11h] ============================================
 @ DECL: void bios_lzss_decomp_wram(const void *src, void *dst);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_lzss_decomp_wram
 .thumb_func
 
@@ -225,7 +225,7 @@ bios_lzss_decomp_wram:
 @ === LZ77UnCompVram [12h] ============================================
 @ DECL: void bios_lzss_decomp_vram(const void *src, void *dst);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_lzss_decomp_vram
 .thumb_func
 
@@ -236,7 +236,7 @@ bios_lzss_decomp_vram:
 @ === HuffUnComp [13h] ================================================
 @ DECL: void bios_huff_decomp(const void *src, void *dst);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_huff_decomp
 .thumb_func
 
@@ -247,7 +247,7 @@ bios_huff_decomp:
 @ === RLUnCompWram [14h] ==============================================
 @ DECL: void bios_rl_decomp_wram(const void *src, void *dst);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_rl_decomp_wram
 .thumb_func
 
@@ -258,7 +258,7 @@ bios_rl_decomp_wram:
 @ === RLUnCompVram [15h] ==============================================
 @ DECL: void bios_rl_decomp_vram(const void *src, void *dst);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_rl_decomp_vram
 .thumb_func
 
@@ -269,7 +269,7 @@ bios_rl_decomp_vram:
 @ === Diff8bitUnFilterWram [16h] ======================================
 @ DECL: void bios_diff_8bit_unfilter_wram(const void *src, void *dst);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_diff_8bit_unfilter_wram
 .thumb_func
 
@@ -280,7 +280,7 @@ bios_diff_8bit_unfilter_wram:
 @ === Diff8bitUnFilterVram [17h] ======================================
 @ DECL: void bios_diff_8bit_unfilter_vram(const void *src, void *dst);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_diff_8bit_unfilter_vram
 .thumb_func
 
@@ -291,7 +291,7 @@ bios_diff_8bit_unfilter_vram:
 @ === Diff16bitUnFilter [18h] =========================================
 @ DECL: void bios_diff_16bit_unfilter(const void *src, void *dst);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_diff_16bit_unfilter
 .thumb_func
 
@@ -302,7 +302,7 @@ bios_diff_16bit_unfilter:
 @ === SoundBias [19h] =================================================
 @ DECL: void bios_sound_bias(u32 bias);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_sound_bias
 .thumb_func
 
@@ -368,7 +368,7 @@ bios_sound_bias:
 @ === MidiKey2Freq [1Fh] ==============================================
 @ DECL: u32 bios_midi_key_to_freq(void *wa, u8 mk, u8 fp);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_midi_key_to_freq
 .thumb_func
 
@@ -379,7 +379,7 @@ bios_midi_key_to_freq:
 @ === MultiBoot [25h] =================================================
 @ DECL: s32 bios_multi_boot(MultiBootParam* mb, u32 mode);
 @ DESC: 
-.balign 2
+.balign 2, 0
 .global bios_multi_boot
 .thumb_func
 
