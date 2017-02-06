@@ -36,5 +36,5 @@
 
 void bios::halt( )
 {
-    
+    bios_halt( );
 }
