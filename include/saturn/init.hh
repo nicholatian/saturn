@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef SATURN_INIT_HH
-#define SATURN_INIT_HH
+#ifndef LIBSATURN_INIT_HH
+#define LIBSATURN_INIT_HH
 
 
 
@@ -42,4 +42,4 @@ bool init( );
 
 
 
-#endif // SATURN_INIT_HH
+#endif // LIBSATURN_INIT_HH

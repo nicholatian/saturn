@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef SATURN_BIOS_HH
-#define SATURN_BIOS_HH
+#ifndef LIBSATURN_BIOS_HH
+#define LIBSATURN_BIOS_HH
 
 #include <gba/types.hh>
 
@@ -48,4 +48,4 @@ void waitVblank( );
 
 }
 
-#endif // SATURN_BIOS_HH
+#endif // LIBSATURN_BIOS_HH

@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef SATURN_ERROR_HH
-#define SATURN_ERROR_HH
+#ifndef LIBSATURN_ERROR_HH
+#define LIBSATURN_ERROR_HH
 
 namespace saturn
 {
@@ -58,4 +58,4 @@ void error( Error err );
 
 }
 
-#endif // SATURN_ERROR_HH
+#endif // LIBSATURN_ERROR_HH

@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef SATURN_HH
-#define SATURN_HH
+#ifndef LIBSATURN_HH
+#define LIBSATURN_HH
 
 #include "saturn/bios.hh"
 #include "saturn/error.hh"
@@ -37,4 +37,4 @@
 #include "saturn/math.hh"
 #include "saturn/startup.hh"
 
-#endif // SATURN_HH
+#endif // LIBSATURN_HH

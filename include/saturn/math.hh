@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef SATURN_MATH_HH
-#define SATURN_MATH_HH
+#ifndef LIBSATURN_MATH_HH
+#define LIBSATURN_MATH_HH
 
 #include <gba/types.hh>
 
@@ -48,4 +48,4 @@ inline s32 modulus( s32 num, s32 den );
 
 
 
-#endif // SATURN_MATH_HH
+#endif // LIBSATURN_MATH_HH

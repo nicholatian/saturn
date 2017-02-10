@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef SATURN_MAINLOOP_HH
-#define SATURN_MAINLOOP_HH
+#ifndef LIBSATURN_MAINLOOP_HH
+#define LIBSATURN_MAINLOOP_HH
 
 
 
@@ -42,4 +42,4 @@ bool mainloop( );
 
 
 
-#endif // SATURN_MAINLOOP_HH
+#endif // LIBSATURN_MAINLOOP_HH
