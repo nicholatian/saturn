@@ -32,15 +32,17 @@
 
 
 
-void main( )
+int main( )
 {
     if(saturn::init( ))
     {
         bios::halt( );
     }
     
-    while(!saturn::main( ))
+    while(!saturn::mainloop( ))
     {
         // Do something here
     }
+    
+    return 0;
 }
