@@ -28,73 +28,30 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef GBA_BIOS_HH
-#define GBA_BIOS_HH
+#include "math.hh"
 
 #include <gba/types.hh>
 
+#include "lowbios.hh"
 
 
-extern "C"
+
+inline s32 saturn::divide( s32 num, s32 den )
 {
-
-void _sat__bios_soft_reset( );
-
-void _sat__bios_register_ram_reset( u32 flags );
-
-void _sat__bios_halt( );
-
-void _sat__bios_stop( );
-
-void _sat__bios_intr_wait( u32 flag_clear, u32 irq );
-
-void _sat__bios_vblank_intr_wait( );
-
-s32 _sat__bios_div( s32 num, s32 den );
-
-s32 _sat__bios_div_arm( s32 den, s32 num );
-
-u32 _sat__bios_sqrt( u32 num );
-
-u32 _sat__bios_arc_tan( s16 dydx );
-
-u32 _sat__bios_arc_tan2( s16 x, s16 y );
-
-void _sat__bios_cpu_set( const void* src, void* dst, u32 mode );
-
-void _sat__bios_cpu_fast_set( const void* src, void* dst, u32 mode );
-
-void _sat__bios_bg_affine_set( const void* src, void* dst, s32 num );
-
-void _sat__bios_obj_affine_set( const void* src, void* dst, s32 num,
-    s32 offset );
-
-void _sat__bios_bit_unpack( const void* src, void* dst, void* bup );
-
-void _sat__bios_lzss_decomp_wram( const void* src, void* dst );
-
-void _sat__bios_lzss_decomp_vram( const void* src, void* dst );
-
-void _sat__bios_huff_decomp( const void* src, void* dst );
-
-void _sat__bios_rl_decomp_wram( const void* src, void* dst );
-
-void _sat__bios_rl_decomp_vram( const void* src, void* dst );
-
-void _sat__bios_diff_8bit_unfilter_wram( const void* src, void* dst );
-
-void _sat__bios_diff_8bit_unfilter_vram( const void* src, void* dst );
-
-void _sat__bios_diff_16bit_unfilter( const void* src, void* dst );
-
-void _sat__bios_sound_bias( u32 bias );
-
-void _sat__bios_midi_key_to_freq( void* wa, u8 mk, u8 fp );
-
-void _sat__bios_multi_boot( void* mb_param, u32 mode );
-
+    if(den == 0)
+    {
+        return 0;
+    }
+    
+    return _sat__bios_div( num, den );
 }
 
+inline u32 saturn::sqroot( u32 num )
+{
+    return _sat__bios_sqrt( num );
+}
 
-
-#endif // GBA_BIOS_HH
+inline s32 saturn::modulus( s32 num, s32 den )
+{
+    return num - (den * saturn::divide( num, den ));
+}

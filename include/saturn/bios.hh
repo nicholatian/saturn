@@ -40,15 +40,11 @@ namespace bios
 
 void softReset( );
 
-void registerRamReset( u32 flags );
-
 void halt( );
 
-void stop( );
+void waitInterrupt( u32 flagClear, u32 irq );
 
-void intrWait( u32 flag_clear, u32 irq );
-
-void vblankIntrWait( );
+void waitVblank( );
 
 }
 

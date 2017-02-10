@@ -28,14 +28,24 @@
  *                                                                           * 
 \*****************************************************************************/
 
+#ifndef SATURN_MATH_HH
+#define SATURN_MATH_HH
+
+#include <gba/types.hh>
+
 
 
 namespace saturn
 {
 
-bool main( )
-{
-    return false;
-}
+inline s32 divide( s32 num, s32 den );
+
+inline u32 sqroot( u32 num );
+
+inline s32 modulus( s32 num, s32 den );
 
 }
+
+
+
+#endif // SATURN_MATH_HH

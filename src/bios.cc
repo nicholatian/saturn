@@ -36,5 +36,20 @@
 
 void bios::halt( )
 {
-    bios_halt( );
+    _sat__bios_halt( );
+}
+
+void bios::softReset( )
+{
+    _sat__bios_soft_reset( );
+}
+
+void bios::waitInterrupt( u32 flagClear, u32 irq )
+{
+    _sat__bios_intr_wait( flagClear, irq );
+}
+
+void bios::waitVblank( )
+{
+    _sat__bios_vblank_intr_wait( );
 }

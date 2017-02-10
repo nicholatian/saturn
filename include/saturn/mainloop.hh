@@ -28,18 +28,18 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef SATURN_MAIN_HH
-#define SATURN_MAIN_HH
+#ifndef SATURN_MAINLOOP_HH
+#define SATURN_MAINLOOP_HH
 
 
 
 namespace saturn
 {
 
-bool main( );
+bool mainloop( );
 
 }
 
 
 
-#endif // SATURN_MAIN_HH
+#endif // SATURN_MAINLOOP_HH
