@@ -134,24 +134,25 @@ const finishup = () => {
             encoding: 'utf8'
         })
     } else {
-        console.log('Generating'.grey + '      ' + cfg.metatada.filename.grey +
+        console.log('Generating      ' + cfg.metadata.filename.grey +
             '.elf'.grey + '...')
         const options = cfg.ldFlags.concat(['-o', path.join(process.cwd(),
             cfg.metadata.filename) + '.elf'], walk( path.join(cfg.buildDir,
-            'code'), /\.o$/), walk(path.join(cfg.buildDir, 'data'), /\.o$/))
+            'code'), /\.o$/), walk(path.join(cfg.buildDir, 'data'), /\.o$/),
+            cfg.libDirs, cfg.libs)
         chproc.execFileSync(cfg.toolchain.linker, options, {
             cwd: process.cwd(),
             encoding: 'utf8'
         })
     }
     if(!cfg.library) {
-        console.log('Generating'.grey + '      ' + cfg.metatada.filename.grey +
+        console.log('Generating      ' + cfg.metadata.filename.grey +
             '.gba'.grey + '...')
         chproc.execFileSync(cfg.toolchain.objcopier, cfg.ocpyFlags, {
             cwd: process.cwd(),
             encoding: 'utf8'
         })
-        console.log('Fixing'.grey + '          ' + cfg.metatada.filename.grey +
+        console.log('Fixing'.grey + '          ' + cfg.metadata.filename.grey +
             '.gba'.grey + '...')
         chproc.execFileSync(cfg.toolchain.gbafix, cfg.fixFlags, {
             cwd: process.cwd(),

@@ -90,7 +90,7 @@ const commonFlags = ['-mcpu=arm7tdmi', '-march=armv4t', '-mthumb',
     '-mthumb-interwork']
 const cdbgFlags   = ['-O0', '-g', '-Wall']
 const crelFlags   = ['-O2']
-const clikeFlags  = commonFlags.concat(['-c', '-fauto-inc-dec',
+const clikeFlags  = commonFlags.concat(['-c', '-fauto-inc-dec', '-fPIC',
     '-fcompare-elim', '-fcprop-registers', '-fdce', '-fdefer-pop',
     '-fdse', '-fguess-branch-probability', '-fif-conversion2',
     '-fif-conversion', '-fipa-pure-const', '-fipa-profile', '-fipa-reference',
@@ -115,27 +115,28 @@ const clikeFlags  = commonFlags.concat(['-c', '-fauto-inc-dec',
     '-fmodulo-sched-allow-regmoves', '-fgcse-sm', '-fgcse-las',
     '-fconserve-stack', '-fno-enforce-eh-specs', '-ffor-scope',
     '-fno-gnu-keywords', '-fno-nonansi-builtins', '-nodefaultlibs',
-    '-nostdlib', '-fno-common'], exports.sysIncludes, exports.locIncludes,
-    exports.libDirs, exports.libs)
+    '-nostdlib', '-fno-common'], exports.sysIncludes, exports.locIncludes)
 
 exports.sFlags = commonFlags.concat(['-acd', '-mlittle-endian', '-EL',
     '--fix-v4bx', '-meabi=5', '-mapcs-32'])
 
 if(!!exports.debug) {
     exports.cFlags   = clikeFlags.concat(['-std=c11'], cdbgFlags)
-    exports.cxxFlags = clikeFlags.concat(['-nostdinc++', '-std=c++14'],
-        cdbgFlags)
+    exports.cxxFlags = clikeFlags.concat(['-nostdinc++', '-std=c++14',
+        '-fno-exceptions'], cdbgFlags)
 } else {
     exports.cFlags   = clikeFlags.concat(['-std=c11'], crelFlags)
-    exports.cxxFlags = clikeFlags.concat(['-nostdinc++', '-std=c++14'],
-        crelFlags)
+    exports.cxxFlags = clikeFlags.concat(['-nostdinc++', '-std=c++14',
+        '-fno-exceptions'], crelFlags)
 }
 
 exports.library = userconf.library
 
 if(!exports.library) {
     exports.arFlags = []
-    exports.ldFlags = ['-T', 'util/gba.ld', '-O']
+    exports.ldFlags = ['-T', 'util/gba.ld', '-O', '--oformat=elf32-littlearm',
+        '-EL', '-static', '--no-demangle', '-nostdlib', '--relax',
+        '--whole-archive', '-z', 'defs', '--pic-veneer']
 } else {
     exports.arFlags = ['-rucs', '--target=elf32-littlearm']
     exports.ldFlags = []

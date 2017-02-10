@@ -37,10 +37,11 @@ const cfg = require('./config')
 
 var exports = module.exports = {}
 
-let startCount = 0
-let doneCount  = 0
-let exitCount  = 0
-let failCount  = 0
+let usedWorkers = 0
+let startCount  = 0
+let doneCount   = 0
+let exitCount   = 0
+let failCount   = 0
 
 const cpuCount   = os.cpus().length
 let   workers    = []
@@ -60,7 +61,7 @@ exports.allDone = () => {
 };
 
 exports.allExited = () => {
-    if(exports.allDone() && exitCount >= 4) {
+    if(exports.allDone() && exitCount >= usedWorkers) {
         return true
     }
     return false
@@ -86,7 +87,7 @@ const getWorker = () => {
     }
     // Spawn a new worker and return it, we don’t have enough
     workers[nextWorker] = chproc.fork(path.join(process.cwd(), 'util',
-        'buildtool', 'worker.js'), ['build.json'], {
+        'buildtool', 'worker.js'), [process.argv[2]], {
         cwd: process.cwd()
     })
     workers[nextWorker].on('message', (m) => {
@@ -96,7 +97,7 @@ const getWorker = () => {
     })
     workers[nextWorker].on('exit', (code, signal) => {
         exitCount++
-        if(code != 0 || signal) {
+        if(code !== 0) {
             failCount++
         }
     })
@@ -117,6 +118,9 @@ exports.queueCode = (src) => {
     const id = getWorker()
     workers[id].send({ file: src, type: srcType, debug: cfg.debug })
     startCount++
+    if(usedWorkers < 4) {
+        usedWorkers++
+    }
 };
 
 exports.queueImage = (src) => {

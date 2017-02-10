@@ -1,27 +1,26 @@
 {
-    "title": "LIBSATURN",
+    "title": "TEST SUITE",
     "lang": "E",
     "code": "ST",
-    "library": true,
+    "library": false,
     "debug": true,
     "srcDirs": [
-        "src"
+        "test/src"
     ],
     "includes": {
         "system": [
             "include"
         ],
         "local": [
-            "include/saturn",
-            "src"
+            "test/src"
         ]
     },
     "libraries": {
         "dirs": [
-            
+            "."
         ],
         "files": [
-            
+            "saturn"
         ]
     },
     "resource": {
