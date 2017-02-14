@@ -51,8 +51,8 @@ struct IoDispcnt
     u16 showObjWin : 1;
 };
 
-IoDispcnt* const  ioDispcnt   = reinterpret_cast<IoDispcnt*>(0x4000000);
-bool* const       ioGreenswap = reinterpret_cast<bool*>(0x4000002);
+IoDispcnt* const ioDispcnt   = reinterpret_cast<IoDispcnt*>(0x4000000);
+bool* const      ioGreenswap = reinterpret_cast<bool*>(0x4000002);
 
 struct IoDispstat
 {
@@ -66,7 +66,7 @@ struct IoDispstat
     u16 vcount      : 8;
 };
 
-IoDispstat* const  ioDispstat = (IoDispstat*)(0x4000004);
+IoDispstat* const ioDispstat = (IoDispstat*)(0x4000004);
 
 struct IoVcount
 {
@@ -74,7 +74,7 @@ struct IoVcount
     u16 unused  : 8;
 };
 
-IoVcount* const  ioVcount = (IoVcount*)(0x4000006);
+IoVcount* const ioVcount = (IoVcount*)(0x4000006);
 
 struct IoBgcnt
 {
@@ -88,19 +88,19 @@ struct IoBgcnt
     u16 screenSize : 2;
 };
 
-IoBgcnt* const  ioBg0cnt = reinterpret_cast<IoBgcnt*>(0x40000008);
-IoBgcnt* const  ioBg1cnt = reinterpret_cast<IoBgcnt*>(0x4000000A);
-IoBgcnt* const  ioBg2cnt = reinterpret_cast<IoBgcnt*>(0x4000000C);
-IoBgcnt* const  ioBg3cnt = reinterpret_cast<IoBgcnt*>(0x4000000E);
+IoBgcnt* const ioBg0cnt = reinterpret_cast<IoBgcnt*>(0x40000008);
+IoBgcnt* const ioBg1cnt = reinterpret_cast<IoBgcnt*>(0x4000000A);
+IoBgcnt* const ioBg2cnt = reinterpret_cast<IoBgcnt*>(0x4000000C);
+IoBgcnt* const ioBg3cnt = reinterpret_cast<IoBgcnt*>(0x4000000E);
 
-u16* const  ioBg0hofs = reinterpret_cast<u16*>(0x40000010);
-u16* const  ioBg0vofs = reinterpret_cast<u16*>(0x40000012);
-u16* const  ioBg1hofs = reinterpret_cast<u16*>(0x40000014);
-u16* const  ioBg1vofs = reinterpret_cast<u16*>(0x40000016);
-u16* const  ioBg2hofs = reinterpret_cast<u16*>(0x40000018);
-u16* const  ioBg2vofs = reinterpret_cast<u16*>(0x4000001A);
-u16* const  ioBg3hofs = reinterpret_cast<u16*>(0x4000001C);
-u16* const  ioBg3vofs = reinterpret_cast<u16*>(0x4000001E);
+u16* const ioBg0hofs = reinterpret_cast<u16*>(0x40000010);
+u16* const ioBg0vofs = reinterpret_cast<u16*>(0x40000012);
+u16* const ioBg1hofs = reinterpret_cast<u16*>(0x40000014);
+u16* const ioBg1vofs = reinterpret_cast<u16*>(0x40000016);
+u16* const ioBg2hofs = reinterpret_cast<u16*>(0x40000018);
+u16* const ioBg2vofs = reinterpret_cast<u16*>(0x4000001A);
+u16* const ioBg3hofs = reinterpret_cast<u16*>(0x4000001C);
+u16* const ioBg3vofs = reinterpret_cast<u16*>(0x4000001E);
 
 struct IoBgfloat16
 {
@@ -117,23 +117,23 @@ struct IoBgfloat32
     u32 unused     : 4;
 };
 
-IoBgfloat16* const  ioBg2pa = reinterpret_cast<IoBgfloat16*>(0x4000020);
-IoBgfloat16* const  ioBg2pb = reinterpret_cast<IoBgfloat16*>(0x4000022);
-IoBgfloat16* const  ioBg2pc = reinterpret_cast<IoBgfloat16*>(0x4000024);
-IoBgfloat16* const  ioBg2pd = reinterpret_cast<IoBgfloat16*>(0x4000026);
-IoBgfloat32* const  ioBg2xL = reinterpret_cast<IoBgfloat32*>(0x4000028);
-IoBgfloat32* const  ioBg2xH = reinterpret_cast<IoBgfloat32*>(0x400002A);
-IoBgfloat32* const  ioBg2yL = reinterpret_cast<IoBgfloat32*>(0x400002C);
-IoBgfloat32* const  ioBg2yH = reinterpret_cast<IoBgfloat32*>(0x400002E);
+IoBgfloat16* const ioBg2pa = reinterpret_cast<IoBgfloat16*>(0x4000020);
+IoBgfloat16* const ioBg2pb = reinterpret_cast<IoBgfloat16*>(0x4000022);
+IoBgfloat16* const ioBg2pc = reinterpret_cast<IoBgfloat16*>(0x4000024);
+IoBgfloat16* const ioBg2pd = reinterpret_cast<IoBgfloat16*>(0x4000026);
+IoBgfloat32* const ioBg2xL = reinterpret_cast<IoBgfloat32*>(0x4000028);
+IoBgfloat32* const ioBg2xH = reinterpret_cast<IoBgfloat32*>(0x400002A);
+IoBgfloat32* const ioBg2yL = reinterpret_cast<IoBgfloat32*>(0x400002C);
+IoBgfloat32* const ioBg2yH = reinterpret_cast<IoBgfloat32*>(0x400002E);
 
-IoBgfloat16* const  ioBg3pa = reinterpret_cast<IoBgfloat16*>(0x4000030);
-IoBgfloat16* const  ioBg3pb = reinterpret_cast<IoBgfloat16*>(0x4000032);
-IoBgfloat16* const  ioBg3pc = reinterpret_cast<IoBgfloat16*>(0x4000034);
-IoBgfloat16* const  ioBg3pd = reinterpret_cast<IoBgfloat16*>(0x4000036);
-IoBgfloat32* const  ioBg3xL = reinterpret_cast<IoBgfloat32*>(0x4000038);
-IoBgfloat32* const  ioBg3xH = reinterpret_cast<IoBgfloat32*>(0x400003A);
-IoBgfloat32* const  ioBg3yL = reinterpret_cast<IoBgfloat32*>(0x400003C);
-IoBgfloat32* const  ioBg3yH = reinterpret_cast<IoBgfloat32*>(0x400003E);
+IoBgfloat16* const ioBg3pa = reinterpret_cast<IoBgfloat16*>(0x4000030);
+IoBgfloat16* const ioBg3pb = reinterpret_cast<IoBgfloat16*>(0x4000032);
+IoBgfloat16* const ioBg3pc = reinterpret_cast<IoBgfloat16*>(0x4000034);
+IoBgfloat16* const ioBg3pd = reinterpret_cast<IoBgfloat16*>(0x4000036);
+IoBgfloat32* const ioBg3xL = reinterpret_cast<IoBgfloat32*>(0x4000038);
+IoBgfloat32* const ioBg3xH = reinterpret_cast<IoBgfloat32*>(0x400003A);
+IoBgfloat32* const ioBg3yL = reinterpret_cast<IoBgfloat32*>(0x400003C);
+IoBgfloat32* const ioBg3yH = reinterpret_cast<IoBgfloat32*>(0x400003E);
 
 struct IoWinH
 {
@@ -141,8 +141,8 @@ struct IoWinH
     u8 right;
 };
 
-IoWinH* const  ioWin0H = reinterpret_cast<IoWinH*>(0x4000040);
-IoWinH* const  ioWin1H = reinterpret_cast<IoWinH*>(0x4000042);
+IoWinH* const ioWin0H = reinterpret_cast<IoWinH*>(0x4000040);
+IoWinH* const ioWin1H = reinterpret_cast<IoWinH*>(0x4000042);
 
 struct IoWinV
 {
@@ -150,8 +150,8 @@ struct IoWinV
     u8 bottom;
 };
 
-IoWinV* const  ioWin0V = reinterpret_cast<IoWinV*>(0x4000044);
-IoWinV* const  ioWin1V = reinterpret_cast<IoWinV*>(0x4000046);
+IoWinV* const ioWin0V = reinterpret_cast<IoWinV*>(0x4000044);
+IoWinV* const ioWin1V = reinterpret_cast<IoWinV*>(0x4000046);
 
 struct IoWinIn
 {
@@ -171,7 +171,7 @@ struct IoWinIn
     u16 unused1 : 2;
 };
 
-IoWinIn* const  ioWinIn = reinterpret_cast<IoWinIn*>(0x4000048);
+IoWinIn* const ioWinIn = reinterpret_cast<IoWinIn*>(0x4000048);
 
 struct IoWinOut
 {
@@ -191,7 +191,7 @@ struct IoWinOut
     u16 unused1   : 2;
 };
 
-IoWinOut* const  ioWinOut = reinterpret_cast<IoWinOut*>(0x400004A);
+IoWinOut* const ioWinOut = reinterpret_cast<IoWinOut*>(0x400004A);
 
 struct IoMosaic
 {
@@ -202,7 +202,7 @@ struct IoMosaic
     u32 unused : 16;
 };
 
-IoMosaic* const  ioMosaic = reinterpret_cast<IoMosaic*>(0x400004C);
+IoMosaic* const ioMosaic = reinterpret_cast<IoMosaic*>(0x400004C);
 
 struct IoBldcnt
 {
@@ -221,7 +221,7 @@ struct IoBldcnt
     u16 backTarget2 : 1;
 };
 
-IoBldcnt* const  ioBldcnt = reinterpret_cast<IoBldcnt*>(0x4000050);
+IoBldcnt* const ioBldcnt = reinterpret_cast<IoBldcnt*>(0x4000050);
 
 struct IoBldalpha
 {
@@ -229,14 +229,14 @@ struct IoBldalpha
     u8 evb;
 };
 
-IoBldalpha* const  ioBldalpha = reinterpret_cast<IoBldalpha*>(0x4000052);
+IoBldalpha* const ioBldalpha = reinterpret_cast<IoBldalpha*>(0x4000052);
 
 struct IoBldy
 {
     u8 evy;
 };
 
-IoBldy* const  ioBldy = reinterpret_cast<IoBldy*>(0x4000054);
+IoBldy* const ioBldy = reinterpret_cast<IoBldy*>(0x4000054);
 
 constexpr u32 imgSector( u8 addrbit )
 {

@@ -38,11 +38,11 @@
 namespace saturn
 {
 
-inline s32 divide( s32 num, s32 den );
+s32 divide( s32 num, s32 den );
 
-inline u32 sqroot( u32 num );
+u32 sqroot( u32 num );
 
-inline s32 modulus( s32 num, s32 den );
+s32 modulus( s32 num, s32 den );
 
 }
 

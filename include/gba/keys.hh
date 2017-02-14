@@ -65,7 +65,7 @@ struct IoKeycnt
     u16 irq_cond : 1;
 };
 
-IoKeyinput* const  ioKeyinput = reinterpret_cast<IoKeyinput*>(0x4000130);
-IoKeycnt* const    ioKeycnt   = reinterpret_cast<IoKeycnt*>(0x4000132);
+IoKeyinput* const ioKeyinput = reinterpret_cast<IoKeyinput*>(0x4000130);
+IoKeycnt* const   ioKeycnt   = reinterpret_cast<IoKeycnt*>(0x4000132);
 
 #endif /* GBA_KEYS_HH */

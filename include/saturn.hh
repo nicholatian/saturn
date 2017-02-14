@@ -34,7 +34,7 @@
 #include "saturn/bios.hh"
 #include "saturn/error.hh"
 #include "saturn/init.hh"
+#include "saturn/mainloop.hh"
 #include "saturn/math.hh"
-#include "saturn/startup.hh"
 
 #endif // LIBSATURN_HH

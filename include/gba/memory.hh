@@ -33,40 +33,40 @@
 
 #include "types.hh"
 
-void* const  segBios    = nullptr;
-u16* const   segEwram   = reinterpret_cast<u16*>(0x2000000);
-u32* const   segIwram   = reinterpret_cast<u32*>(0x3000000);
-u16* const   segIo      = reinterpret_cast<u16*>(0x4000000);
-u16* const   segPal     = reinterpret_cast<u16*>(0x5000000);
-u16* const   segPalBg   = segPal;
-u16* const   segPalObj  = segPal + 0x200;
-u16* const   segVram    = reinterpret_cast<u16*>(0x6000000);
-u16* const   segVramBg  = segVram;
-u16* const   segVramObj = segVram + 0x10000;
-u16* const   segOam     = reinterpret_cast<u16*>(0x7000000);
-u16* const   segRom     = reinterpret_cast<u16*>(0x8000000);
-u8* const    segSram    = reinterpret_cast<u8*>(0xE000000);
+void* const segBios    = nullptr;
+u16* const  segEwram   = reinterpret_cast<u16*>(0x2000000);
+u32* const  segIwram   = reinterpret_cast<u32*>(0x3000000);
+u16* const  segIo      = reinterpret_cast<u16*>(0x4000000);
+u16* const  segPal     = reinterpret_cast<u16*>(0x5000000);
+u16* const  segPalBg   = segPal;
+u16* const  segPalObj  = segPal + 0x200;
+u16* const  segVram    = reinterpret_cast<u16*>(0x6000000);
+u16* const  segVramBg  = segVram;
+u16* const  segVramObj = segVram + 0x10000;
+u16* const  segOam     = reinterpret_cast<u16*>(0x7000000);
+u16* const  segRom     = reinterpret_cast<u16*>(0x8000000);
+u8* const   segSram    = reinterpret_cast<u8*>(0xE000000);
 
 
 
-u32* const  ioDma0sad  = reinterpret_cast<u32*>(0x40000B0);
-u32* const  ioDma0dad  = reinterpret_cast<u32*>(0x40000B4);
-u16* const  ioDma0cntL = reinterpret_cast<u16*>(0x40000B8);
-u16* const  ioDma0cntH = reinterpret_cast<u16*>(0x40000BA);
+u32* const ioDma0sad  = reinterpret_cast<u32*>(0x40000B0);
+u32* const ioDma0dad  = reinterpret_cast<u32*>(0x40000B4);
+u16* const ioDma0cntL = reinterpret_cast<u16*>(0x40000B8);
+u16* const ioDma0cntH = reinterpret_cast<u16*>(0x40000BA);
 
-u32* const  ioDma1sad  = reinterpret_cast<u32*>(0x40000BC);
-u32* const  ioDma1dad  = reinterpret_cast<u32*>(0x40000C0);
-u16* const  ioDma1cntL = reinterpret_cast<u16*>(0x40000C4);
-u16* const  ioDma1cntH = reinterpret_cast<u16*>(0x40000C6);
+u32* const ioDma1sad  = reinterpret_cast<u32*>(0x40000BC);
+u32* const ioDma1dad  = reinterpret_cast<u32*>(0x40000C0);
+u16* const ioDma1cntL = reinterpret_cast<u16*>(0x40000C4);
+u16* const ioDma1cntH = reinterpret_cast<u16*>(0x40000C6);
 
-u32* const  ioDma2sad  = reinterpret_cast<u32*>(0x40000C8);
-u32* const  ioDma2dad  = reinterpret_cast<u32*>(0x40000CC);
-u16* const  ioDma2cntL = reinterpret_cast<u16*>(0x40000D0);
-u16* const  ioDma2cntH = reinterpret_cast<u16*>(0x40000D2);
+u32* const ioDma2sad  = reinterpret_cast<u32*>(0x40000C8);
+u32* const ioDma2dad  = reinterpret_cast<u32*>(0x40000CC);
+u16* const ioDma2cntL = reinterpret_cast<u16*>(0x40000D0);
+u16* const ioDma2cntH = reinterpret_cast<u16*>(0x40000D2);
 
-u32* const  ioDma3sad  = reinterpret_cast<u32*>(0x40000D4);
-u32* const  ioDma3dad  = reinterpret_cast<u32*>(0x40000D8);
-u16* const  ioDma3cntL = reinterpret_cast<u16*>(0x40000DC);
-u16* const  ioDma3cntH = reinterpret_cast<u16*>(0x40000DE);
+u32* const ioDma3sad  = reinterpret_cast<u32*>(0x40000D4);
+u32* const ioDma3dad  = reinterpret_cast<u32*>(0x40000D8);
+u16* const ioDma3cntL = reinterpret_cast<u16*>(0x40000DC);
+u16* const ioDma3cntH = reinterpret_cast<u16*>(0x40000DE);
 
 #endif // GBA_MEMORY_HH
