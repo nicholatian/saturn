@@ -28,7 +28,7 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#include "memory.hh"
+//#include "memory.hh"
 
 
 
@@ -46,7 +46,7 @@
  *              fit in CpuSet, and finally copying the remaining data by hand
  *              as words then dwords then bytes. See GBATek for details on how
  *              CpuSet and CpuFastSet operate.
- */
+ *
 
 void saturn::lomem::copy( void* src, u32 srcSize, void* dst )
 {
