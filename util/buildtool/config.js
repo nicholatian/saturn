@@ -90,9 +90,9 @@ const commonFlags = ['-mcpu=arm7tdmi', '-march=armv4t', '-mthumb',
     '-mthumb-interwork']
 const cdbgFlags   = ['-O0', '-g', '-Wall']
 const crelFlags   = ['-O2']
-const clikeFlags  = commonFlags.concat(['-c', '-fauto-inc-dec', '-fPIC',
-    '-fcompare-elim', '-fcprop-registers', '-fdce', '-fdefer-pop',
-    '-fdse', '-fguess-branch-probability', '-fif-conversion2',
+const clikeFlags  = commonFlags.concat(['-c',
+    '-fauto-inc-dec', '-fPIC', '-fcompare-elim', '-fcprop-registers', '-fdce',
+    '-fdefer-pop', '-fdse', '-fguess-branch-probability', '-fif-conversion2',
     '-fif-conversion', '-fipa-pure-const', '-fipa-profile', '-fipa-reference',
     '-fmerge-constants', '-fsplit-wide-types', '-ftree-bit-ccp',
     '-ftree-builtin-call-dce', '-ftree-ccp', '-ftree-ch', '-ftree-copyrename',
@@ -114,8 +114,8 @@ const clikeFlags  = commonFlags.concat(['-c', '-fauto-inc-dec', '-fPIC',
     '-fforward-propagate', '-finline-functions-called-once', '-fmodulo-sched',
     '-fmodulo-sched-allow-regmoves', '-fgcse-sm', '-fgcse-las',
     '-fconserve-stack', '-fno-enforce-eh-specs', '-ffor-scope',
-    '-fno-gnu-keywords', '-fno-nonansi-builtins', '-nodefaultlibs',
-    '-nostdlib', '-fno-common'], exports.sysIncludes, exports.locIncludes)
+    '-fno-gnu-keywords', '-fno-nonansi-builtins', '-fno-common',
+    '-nodefaultlibs', '-nostdlib'], exports.sysIncludes, exports.locIncludes)
 
 exports.sFlags = commonFlags.concat(['-acd', '-mlittle-endian', '-EL',
     '--fix-v4bx', '-meabi=5', '-mapcs-32'])
