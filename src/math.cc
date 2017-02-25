@@ -36,7 +36,7 @@
 
 
 
-inline s32 saturn::divide( s32 num, s32 den )
+s32 saturn::divide( s32 num, s32 den )
 {
     if(den == 0)
     {
@@ -46,12 +46,12 @@ inline s32 saturn::divide( s32 num, s32 den )
     return _sat__bios_div( num, den );
 }
 
-inline u32 saturn::sqroot( u32 num )
+u32 saturn::sqroot( u32 num )
 {
     return _sat__bios_sqrt( num );
 }
 
-inline s32 saturn::modulus( s32 num, s32 den )
+s32 saturn::modulus( s32 num, s32 den )
 {
     return num - (den * saturn::divide( num, den ));
 }

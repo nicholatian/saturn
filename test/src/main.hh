@@ -28,37 +28,13 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef GBA_KEYS_HH
-#define GBA_KEYS_HH
+#ifndef SATURNTEST_MAIN_HH
+#define SATURNTEST_MAIN_HH
 
-#include "types.hh"
 
-constexpr u16 kKeyinputAPressed     = 0x1;
-constexpr u16 kKeyinputBPressed     = 0x2;
-constexpr u16 kKeyinputSelPressed   = 0x4;
-constexpr u16 kKeyinputStartPressed = 0x8;
-constexpr u16 kKeyinputRightPressed = 0x10;
-constexpr u16 kKeyinputLeftPressed  = 0x20;
-constexpr u16 kKeyinputUpPressed    = 0x40;
-constexpr u16 kKeyinputDownPressed  = 0x80;
-constexpr u16 kKeyinputRPressed     = 0x100;
-constexpr u16 kKeyinputLPressed     = 0x200;
 
-u16* const ioKeyinput = reinterpret_cast<u16*>(0x4000130);
+extern "C" int main( );
 
-constexpr u16 kKeycntAPressed     = 0x1;
-constexpr u16 kKeycntBPressed     = 0x2;
-constexpr u16 kKeycntSelPressed   = 0x4;
-constexpr u16 kKeycntStartPressed = 0x8;
-constexpr u16 kKeycntRightPressed = 0x10;
-constexpr u16 kKeycntLeftPressed  = 0x20;
-constexpr u16 kKeycntUpPressed    = 0x40;
-constexpr u16 kKeycntDownPressed  = 0x80;
-constexpr u16 kKeycntRPressed     = 0x100;
-constexpr u16 kKeycntLPressed     = 0x200;
-constexpr u16 kKeycntUseIrq       = 0x4000;
-constexpr u16 kKeycntIrqCond      = 0x8000;
 
-u16* const ioKeycnt   = reinterpret_cast<u16*>(0x4000132);
 
-#endif /* GBA_KEYS_HH */
+#endif // SATURNTEST_MAIN_HH

@@ -28,41 +28,68 @@
  *                                                                           * 
 \*****************************************************************************/
 
+OUTPUT_FORMAT("elf32-littlearm")
 OUTPUT_ARCH(arm)
 
 MEMORY
 {
-    bios    : ORIGIN = 0x00000000, LENGTH = 16k
-    ewram   : ORIGIN = 0x02000000, LENGTH = 256k
-    iwram   : ORIGIN = 0x03000000, LENGTH = 32k
-    io      : ORIGIN = 0x04000000, LENGTH = 1k - 1
-    pal     : ORIGIN = 0x05000000, LENGTH = 1k
-    vram    : ORIGIN = 0x06000000, LENGTH = 96k
-    oam     : ORIGIN = 0x07000000, LENGTH = 1k
-    rom     : ORIGIN = 0x08000000, LENGTH = 32M
+    ewram : ORIGIN = 0x2000000, LENGTH = 256k
+    iwram : ORIGIN = 0x3000000, LENGTH = 32k
+    vram  : ORIGIN = 0x6000000, LENGTH = 96k
+    rom   : ORIGIN = 0x8000000, LENGTH = 32M
 }
+
+ENTRY(__start) ;
 
 SECTIONS
 {
+    .           = ORIGIN(iwram) ;
+    __bss_start = . ;
+    
+    .bss :
+    {
+        *(.bss) ;
+    } >iwram
+    
+    __bss_end    = . ;
+    __data_start = . ;
+    
+    .data :
+    {
+        *(.data) ;
+        *(COMMON) ;
+    } >iwram
+    
+    __data_end   = . ;
+    .            = ORIGIN(ewram) ;
+    __sbss_start = . ;
+    
+    .sbss :
+    {
+        *(.sbss) ;
+    } >ewram
+    
+    __sbss_end   = . ;
+    .            = ORIGIN(rom) ;
+    __text_start = . ;
+    
     .text :
     {
-        FILL (0xC046)
-        
-        __text_start = . ;
-        *(.init)
-        *(.text)
-        *(.ctors)
-        *(.dtors)
-        *(.rodata)
-        *(.fini)
-        *(.data)
-        *(COMMON)
-        __text_end  = . ;
-        
-        __bss_start__ = . ;
-        *(.bss)
-        __bss_end__ = . ;
-        _end = __bss_end__ ;
-        __end__ = __bss_end__ ;
+        *(.init) ;
+        *(.fini) ;
+        *(.text) ;
+        *(.ctors) ;
+        *(.dtors) ;
     } >rom = 0xFF
+    
+    __text_end     = . ;
+    __rodata_start = . ;
+    
+    .rodata :
+    {
+        *(.rodata) ;
+    } >rom = 0xFF
+    
+    __rodata_end = . ;
+    __end        = . ;
 }

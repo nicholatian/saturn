@@ -34,8 +34,6 @@
 #include <gba/memory.hh>
 #include <gba/types.hh>
 
-extern u16 colourErrorPal;
-
 
 
 void saturn::error( saturn::Error err )
@@ -50,9 +48,8 @@ void saturn::error( saturn::Error err )
     
     for(u32 i = 0; i < 0x10; i += 1)
     {
-        segPalBg[i] = (&colourErrorPal)[i];
+        segPalBg[i] = 0x7FFF;
     }
     
-    ioDispcnt->bgMode  = 4;
-    ioDispcnt->showBg2 = 1;
+    *ioDispcnt = kDispcntBgMode4 | kDispcntShowBg2;
 }

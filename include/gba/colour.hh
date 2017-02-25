@@ -37,7 +37,8 @@ typedef unsigned short Colour;
 
 constexpr Colour rgb24to15( u8 r, u8 g, u8 b )
 {
-    return static_cast<Colour>((r >> 3) | ((g >> 3) << 5) | ((b >> 3) << 10));
+    return reinterpret_cast<Colour>((r >> 3) | ((g >> 3) << 5) | ((b >> 3) <<
+        10));
 }
 
 #endif /* GBA_COLOUR_HH */

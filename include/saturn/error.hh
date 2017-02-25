@@ -31,6 +31,8 @@
 #ifndef LIBSATURN_ERROR_HH
 #define LIBSATURN_ERROR_HH
 
+
+
 namespace saturn
 {
 
@@ -57,5 +59,7 @@ enum class Error
 void error( Error err );
 
 }
+
+
 
 #endif // LIBSATURN_ERROR_HH

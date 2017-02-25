@@ -136,10 +136,10 @@ const finishup = () => {
     } else {
         console.log('Generating      ' + cfg.metadata.filename.grey +
             '.elf'.grey + '...')
-        const options = cfg.ldFlags.concat(['-o', path.join(process.cwd(),
+        const options = cfg.ldFlags.concat([cfg.libDirs, '-o', path.join(process.cwd(),
             cfg.metadata.filename) + '.elf'], walk( path.join(cfg.buildDir,
             'code'), /\.o$/), walk(path.join(cfg.buildDir, 'data'), /\.o$/),
-            cfg.libDirs, cfg.libs)
+            cfg.libs)
         chproc.execFileSync(cfg.toolchain.linker, options, {
             cwd: process.cwd(),
             encoding: 'utf8'

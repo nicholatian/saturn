@@ -33,48 +33,44 @@
 
 #include "types.hh"
 
-struct IoDispcnt
+constexpr u16 kDispcntBgMode0    = 0x0;
+constexpr u16 kDispcntBgMode1    = 0x1;
+constexpr u16 kDispcntBgMode2    = 0x2;
+constexpr u16 kDispcntBgMode3    = 0x3;
+constexpr u16 kDispcntBgMode4    = 0x4;
+constexpr u16 kDispcntBgMode5    = 0x5;
+constexpr u16 kDispcntCgbMode    = 0x8;
+constexpr u16 kDispcntFrameSel   = 0x10;
+constexpr u16 kDispcntHblankIntv = 0x20;
+constexpr u16 kDispcntObjVramDim = 0x40;
+constexpr u16 kDispcntForceBlank = 0x80;
+constexpr u16 kDispcntShowBg0    = 0x100;
+constexpr u16 kDispcntShowBg1    = 0x200;
+constexpr u16 kDispcntShowBg2    = 0x400;
+constexpr u16 kDispcntShowBg3    = 0x800;
+constexpr u16 kDispcntShowObj    = 0x1000;
+constexpr u16 kDispcntShowWin0   = 0x2000;
+constexpr u16 kDispcntShowWin1   = 0x4000;
+constexpr u16 kDispcntShowObjWin = 0x8000;
+
+u16* const  ioDispcnt   = reinterpret_cast<u16*>(0x4000000);
+bool* const ioGreenswap = reinterpret_cast<bool*>(0x4000002);
+
+constexpr u16 kDispstatVblank      = 0x1;
+constexpr u16 kDispstatHblank      = 0x2;
+constexpr u16 kDispstatVcounter    = 0x4;
+constexpr u16 kDispstatVblankIrq   = 0x8;
+constexpr u16 kDispstatHblankIrq   = 0x10;
+constexpr u16 kDispstatVcounterIrq = 0x20;
+
+constexpr u16 dispstatVcount( u16 vcount )
 {
-    u16 bgMode     : 3;
-    u16 cgbMode    : 1;
-    u16 frameSel   : 1;
-    u16 hblankIntv : 1;
-    u16 objVramDim : 1;
-    u16 forceBlank : 1;
-    u16 showBg0    : 1;
-    u16 showBg1    : 1;
-    u16 showBg2    : 1;
-    u16 showBg3    : 1;
-    u16 showObj    : 1;
-    u16 showWin0   : 1;
-    u16 showWin1   : 1;
-    u16 showObjWin : 1;
-};
+    return vcount << 8;
+}
 
-IoDispcnt* const ioDispcnt   = reinterpret_cast<IoDispcnt*>(0x4000000);
-bool* const      ioGreenswap = reinterpret_cast<bool*>(0x4000002);
+u16* const ioDispstat = reinterpret_cast<u16*>(0x4000004);
 
-struct IoDispstat
-{
-    u16 vblank      : 1;
-    u16 hblank      : 1;
-    u16 vcounter    : 1;
-    u16 vblankIrq   : 1;
-    u16 hblankIrq   : 1;
-    u16 vcounterIrq : 1;
-    u16 unused      : 2;
-    u16 vcount      : 8;
-};
-
-IoDispstat* const ioDispstat = (IoDispstat*)(0x4000004);
-
-struct IoVcount
-{
-    u16 current : 8;
-    u16 unused  : 8;
-};
-
-IoVcount* const ioVcount = (IoVcount*)(0x4000006);
+u8* const ioVcount = reinterpret_cast<u8*>(0x4000006);
 
 struct IoBgcnt
 {
@@ -88,10 +84,50 @@ struct IoBgcnt
     u16 screenSize : 2;
 };
 
-IoBgcnt* const ioBg0cnt = reinterpret_cast<IoBgcnt*>(0x40000008);
-IoBgcnt* const ioBg1cnt = reinterpret_cast<IoBgcnt*>(0x4000000A);
-IoBgcnt* const ioBg2cnt = reinterpret_cast<IoBgcnt*>(0x4000000C);
-IoBgcnt* const ioBg3cnt = reinterpret_cast<IoBgcnt*>(0x4000000E);
+constexpr u16 bgcntPriority( u16 priority )
+{
+    return priority;
+}
+
+constexpr u16 bgcntImgSector( u16 sector )
+{
+    return sector << 2;
+}
+
+constexpr u16 kBgcntMosaic = 0x80;
+
+constexpr u16 kBgcntPalMode4 = 0x0;
+constexpr u16 kBgcntPalMode8 = 0x100;
+
+constexpr u16 bgcntMapSector( u16 sector )
+{
+    return sector << 8;
+}
+
+constexpr u16 bgcntMapAddr( u16 address )
+{
+    return ((address - 0x6000000) >> 10) << 8;
+}
+
+constexpr u16 kBgcntOverflow = 0x2000;
+
+enum class BgcntScreenSize : u16
+{
+    _256x256 = 0,
+    _256x512 = 1,
+    _512x256 = 2,
+    _512x512 = 3
+};
+
+constexpr u16 bgcntScreenSize( BgcntScreenSize size )
+{
+    return static_cast<u16>(size) << 14;
+}
+
+u16* const ioBg0cnt = reinterpret_cast<u16*>(0x40000008);
+u16* const ioBg1cnt = reinterpret_cast<u16*>(0x4000000A);
+u16* const ioBg2cnt = reinterpret_cast<u16*>(0x4000000C);
+u16* const ioBg3cnt = reinterpret_cast<u16*>(0x4000000E);
 
 u16* const ioBg0hofs = reinterpret_cast<u16*>(0x40000010);
 u16* const ioBg0vofs = reinterpret_cast<u16*>(0x40000012);

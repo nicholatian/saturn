@@ -88,33 +88,9 @@ for(let i = 0; i < _libs.length; i++) {
 
 const commonFlags = ['-mcpu=arm7tdmi', '-march=armv4t', '-mthumb',
     '-mthumb-interwork']
-const cdbgFlags   = ['-O0', '-g', '-Wall']
+const cdbgFlags   = ['-O0', '-g', '-Wall', '-Wextra']
 const crelFlags   = ['-O2']
-const clikeFlags  = commonFlags.concat(['-c',
-    '-fauto-inc-dec', '-fPIC', '-fcompare-elim', '-fcprop-registers', '-fdce',
-    '-fdefer-pop', '-fdse', '-fguess-branch-probability', '-fif-conversion2',
-    '-fif-conversion', '-fipa-pure-const', '-fipa-profile', '-fipa-reference',
-    '-fmerge-constants', '-fsplit-wide-types', '-ftree-bit-ccp',
-    '-ftree-builtin-call-dce', '-ftree-ccp', '-ftree-ch', '-ftree-copyrename',
-    '-ftree-dce', '-ftree-dominator-opts', '-ftree-dse', '-ftree-forwprop',
-    '-ftree-fre', '-ftree-phiprop', '-ftree-sra', '-ftree-pta', '-ftree-ter',
-    '-funit-at-a-time', '-fomit-frame-pointer', '-fthread-jumps',
-    '-falign-functions', '-falign-jumps', '-falign-loops', '-falign-labels',
-    '-fcaller-saves', '-fcrossjumping', '-fcse-follow-jumps',
-    '-fcse-skip-blocks', '-fdelete-null-pointer-checks', '-fdevirtualize',
-    '-fexpensive-optimizations', '-fgcse', '-fgcse-lm',
-    '-finline-small-functions', '-findirect-inlining', '-fipa-sra',
-    '-foptimize-sibling-calls', '-fpeephole2', '-fregmove', '-freorder-blocks',
-    '-freorder-functions', '-frerun-cse-after-loop', '-fsched-interblock',
-    '-fsched-spec', '-fschedule-insns', '-fschedule-insns2',
-    '-fstrict-aliasing', '-fstrict-overflow', '-ftree-switch-conversion',
-    '-ftree-tail-merge', '-ftree-pre', '-ftree-vrp', '-funswitch-loops',
-    '-fpredictive-commoning', '-fgcse-after-reload', '-ftree-slp-vectorize',
-    '-fvect-cost-model', '-fipa-cp-clone', '-ffast-math',
-    '-fforward-propagate', '-finline-functions-called-once', '-fmodulo-sched',
-    '-fmodulo-sched-allow-regmoves', '-fgcse-sm', '-fgcse-las',
-    '-fconserve-stack', '-fno-enforce-eh-specs', '-ffor-scope',
-    '-fno-gnu-keywords', '-fno-nonansi-builtins', '-fno-common',
+const clikeFlags  = commonFlags.concat(['-c','-fPIC', '-fno-common',
     '-nodefaultlibs', '-nostdlib'], exports.sysIncludes, exports.locIncludes)
 
 exports.sFlags = commonFlags.concat(['-acd', '-mlittle-endian', '-EL',
@@ -134,9 +110,7 @@ exports.library = userconf.library
 
 if(!exports.library) {
     exports.arFlags = []
-    exports.ldFlags = ['-T', 'util/gba.ld', '-O', '--oformat=elf32-littlearm',
-        '-EL', '-static', '--no-demangle', '-nostdlib', '--relax',
-        '--whole-archive', '-z', 'defs', '--pic-veneer']
+    exports.ldFlags = ['-T', 'util/gba.ld', '-nostdlib', '--whole-archive']
 } else {
     exports.arFlags = ['-rucs', '--target=elf32-littlearm']
     exports.ldFlags = []
