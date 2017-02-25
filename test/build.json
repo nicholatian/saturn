@@ -9,7 +9,8 @@
     ],
     "includes": {
         "system": [
-            "include"
+            "include",
+            "include/saturn"
         ],
         "local": [
             "test/src"

@@ -54,7 +54,7 @@ exports.debug = userconf.debug
 exports.toolchain.assembler   = tcPrefix + 'as'
 exports.toolchain.cCompiler   = tcPrefix + 'gcc'
 exports.toolchain.cxxCompiler = tcPrefix + 'g++'
-exports.toolchain.linker      = tcPrefix + 'ld'
+exports.toolchain.linker      = tcPrefix + 'g++'
 exports.toolchain.archiver    = tcPrefix + 'ar'
 exports.toolchain.objcopier   = tcPrefix + 'objcopy'
 exports.toolchain.grit        = path.join(process.env.DEVKITARM, 'bin', 'grit')
@@ -68,12 +68,12 @@ exports.libs        = []
 
 const _sysInc = userconf.includes.system
 for(let i = 0; i < _sysInc.length; i++) {
-    exports.sysIncludes = exports.sysIncludes.concat(['-isystem', _sysInc[i]])
+    exports.sysIncludes = exports.sysIncludes.concat(['-I', _sysInc[i]])
 }
 
 const _locInc = userconf.includes.local
 for(let i = 0; i < _locInc.length; i++) {
-    exports.locIncludes = exports.locIncludes.concat(['-iquote', _locInc[i]])
+    exports.locIncludes = exports.locIncludes.concat(['-I', _locInc[i]])
 }
 
 const _libDirs = userconf.libraries.dirs
@@ -90,8 +90,9 @@ const commonFlags = ['-mcpu=arm7tdmi', '-march=armv4t', '-mthumb',
     '-mthumb-interwork']
 const cdbgFlags   = ['-O0', '-g', '-Wall', '-Wextra']
 const crelFlags   = ['-O2']
-const clikeFlags  = commonFlags.concat(['-c','-fPIC', '-fno-common',
-    '-nodefaultlibs', '-nostdlib'], exports.sysIncludes, exports.locIncludes)
+const clikeFlags  = commonFlags.concat(exports.sysIncludes,
+    exports.locIncludes, ['-c','-fPIC', '-fno-common', '-nodefaultlibs',
+    '-nostdlib'])
 
 exports.sFlags = commonFlags.concat(['-acd', '-mlittle-endian', '-EL',
     '--fix-v4bx', '-meabi=5', '-mapcs-32'])
@@ -110,15 +111,15 @@ exports.library = userconf.library
 
 if(!exports.library) {
     exports.arFlags = []
-    exports.ldFlags = ['-T', 'util/gba.ld', '-nostdlib', '--whole-archive']
+    exports.ldFlags = ['-nostdlib', '-T', 'util/gba.ld', '--whole-file']
 } else {
     exports.arFlags = ['-rucs', '--target=elf32-littlearm']
     exports.ldFlags = []
 }
 
-exports.ocpyFlags = ['-O', 'binary', exports.filename + '.elf',
-    exports.filename + '.gba']
-exports.fixFlags  = [exports.filename + '.gba', '-p',
+exports.ocpyFlags = ['-O', 'binary', exports.metadata.filename + '.elf',
+    exports.metadata.filename + '.gba']
+exports.fixFlags  = [exports.metadata.filename + '.gba', '-p',
     '-t' + exports.metadata.title, '-c' + exports.metadata.romCode,
     '-m' + exports.metadata.romMaker, '-v0']
 exports.gritFlags = ['-m', '-fh!', '-gT70C8A8']

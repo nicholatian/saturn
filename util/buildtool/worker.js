@@ -38,8 +38,9 @@ const colour = require('./colour')
 const cc = (file, debug) => {
     try {
         console.log('Compiling'.cyan + '       ' + file.grey + '...')
-        const options = cfg.cFlags.concat(['-o', path.join(cfg.buildDir,
-            'code', file.replace(/\//g, '+')) + '.o', file])
+        const options = cfg.cFlags.concat([file, '-o', path.join(cfg.buildDir,
+            'code', file.replace(/\//g, '+').replace(
+            /\.(asm|c|cc|cpp|cxx|c\+\+|s)$/, '.o'))])
         chproc.execFileSync(cfg.toolchain.cCompiler, options, {
             cwd: process.cwd(),
             encoding: 'utf8'
@@ -53,8 +54,9 @@ const cc = (file, debug) => {
 const cxx = (file, debug) => {
     try {
         console.log('Compiling'.blue + '       ' + file.grey + '...')
-        const options = cfg.cxxFlags.concat(['-o', path.join(cfg.buildDir,
-            'code', file.replace(/\//g, '+')) + '.o', file])
+        const options = cfg.cxxFlags.concat([file, '-o', path.join(
+            cfg.buildDir, 'code', file.replace(/\//g, '+').replace(
+            /\.(asm|c|cc|cpp|cxx|c\+\+|s)$/, '.o'))])
         chproc.execFileSync(cfg.toolchain.cxxCompiler, options, {
             cwd: process.cwd(),
             encoding: 'utf8'
@@ -69,7 +71,8 @@ const as = (file) => {
     try {
         console.log('Assembling'.green + '      ' + file.grey + '...')
         const options = cfg.sFlags.concat(['-o', path.join(cfg.buildDir,
-            'code', file.replace(/\//g, '+')) + '.o', file])
+            'code', file.replace(/\//g, '+').replace(
+            /\.(asm|c|cc|cpp|cxx|c\+\+|s)$/, '.o')), file])
         chproc.execFileSync(cfg.toolchain.assembler, options, {
             cwd: process.cwd(),
             encoding: 'utf8'
@@ -121,7 +124,8 @@ const grit = (file, depth, tiled, algo, reduce) => {
             encoding: 'utf8'
         })
         const opts2 = cfg.sFlags.concat(['-o', path.join(cfg.buildDir, 'data',
-            'image', file.replace(/.*\//g, '')) + '.o', path.join(cfg.buildDir,
+            'image', file.replace(/.*\//g, '')).replace(
+            /\.png$/, '.o'), path.join(cfg.buildDir,
             'data', 'image', file.replace(/.*\//g, '')) + '.s'])
         chproc.execFileSync(cfg.toolchain.assembler, opts2, {
             cwd: process.cwd(),
