@@ -28,7 +28,9 @@
  *                                                                           * 
 \*****************************************************************************/
 
-//#include "memory.hh"
+#include "memory.hh"
+
+#include <bios.hh>
 
 
 
@@ -47,7 +49,7 @@
  *              as words then dwords then bytes. See GBATek for details on how
  *              CpuSet and CpuFastSet operate.
  * 
-
+ */
 
 void saturn::lomem::copy( void* src, u32 srcSize, void* dst )
 {
@@ -78,9 +80,9 @@ void saturn::lomem::copy( void* src, u32 srcSize, void* dst )
     }
     
     // repositioned source address
-    const void* src2       = (void*)(((u32)src) + sblockBytes);
+    const void* src2       = reinterpret_cast<void*>(((u32)src) + sblockBytes);
     // same for dest
-    const void* dst2       = (void*)(((u32)dst) + sblockBytes);
+    const void* dst2       = reinterpret_cast<void*>(((u32)dst) + sblockBytes);
     // number of bytes to copy, blocks only
     const u32   blockBytes = blockCount << 3;
     
@@ -88,7 +90,4 @@ void saturn::lomem::copy( void* src, u32 srcSize, void* dst )
     {
         _sat__cpu_set( source, dest, blockBytes );
     }
-    
-    
 }
-*/
