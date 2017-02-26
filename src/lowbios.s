@@ -29,7 +29,7 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 .file "src/bios.s"
-.ident "AS: (devkitARM release 45) 2.25.1"
+.ident "AS: (devkitARM release 46) 2.27"
 
 .section .text
 .balign  2, 0

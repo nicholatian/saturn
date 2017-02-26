@@ -29,7 +29,7 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 .file "src/bootsector.s"
-.ident "AS: (devkitARM release 45) 2.25.1"
+.ident "AS: (devkitARM release 46) 2.27"
 
 @@
 @@ ROM jump opcode
