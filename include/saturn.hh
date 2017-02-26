@@ -31,7 +31,6 @@
 #ifndef LIBSATURN_HH
 #define LIBSATURN_HH
 
-#include "saturn/bios.hh"
 #include "saturn/error.hh"
 #include "saturn/init.hh"
 #include "saturn/mainloop.hh"
