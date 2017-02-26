@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef GBA_TYPES_HH
-#define GBA_TYPES_HH
+#ifndef INC__LIBSATURN_GBA_TYPES_HH
+#define INC__LIBSATURN_GBA_TYPES_HH
 
 typedef unsigned char  u8;
 typedef unsigned short u16;
@@ -39,4 +39,4 @@ typedef signed char    s8;
 typedef signed short   s16;
 typedef signed long    s32;
 
-#endif // GBA_TYPES_HH
+#endif // INC__LIBSATURN_GBA_TYPES_HH

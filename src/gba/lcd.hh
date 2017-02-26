@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef GBA_LCD_HH
-#define GBA_LCD_HH
+#ifndef INC__LIBSATURN_GBA_LCD_HH
+#define INC__LIBSATURN_GBA_LCD_HH
 
 #include "types.hh"
 
@@ -323,4 +323,4 @@ struct ObjAttr2
     u16 palNum   : 4;
 };
 
-#endif /* GBA_LCD_HH */
+#endif // INC__LIBSATURN_GBA_LCD_HH
