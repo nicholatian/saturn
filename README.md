@@ -29,3 +29,18 @@ Here is a short list of some of the things Saturn hopes to provide:
 Saturn is Free Software. That means you can distribute, modify, and use it in
 any way you please, without restriction. To be specific, Saturn is released
 under the __Apache License 2.0__.
+
+## Building titles with Saturn
+
+We have some notes regarding the usage of this engine to build titles for the
+GBA. We ask that you read over them to ensure that you enjoy a seamless
+development experience with our work.
+
+- While the majority of the engine is kept in C++ namespaces to prevent naming
+  collisions, this is not always possible as some of the code must be written
+  in assembly where namespaces do not exist. To alleviate this issue, we have
+  reserved all symbols beginning with `_sat__` for internal use by the engine,
+  and ask that you do not create functions bearing this prefix for safety’s
+  sake. This is in addition to ISO C’s reservation of symbols starting with an
+  underscore followed by a capital letter, and ISO C++’s reservation of symbols
+  starting with a double underscore.
