@@ -31,7 +31,16 @@
 #ifndef LIBSATURN_ERROR_HH
 #define LIBSATURN_ERROR_HH
 
+#include "gba/types.hh"
 
+
+
+extern "C"
+{
+
+extern u16 colourErrorPal;
+
+}
 
 namespace saturn
 {

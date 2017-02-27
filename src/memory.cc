@@ -30,7 +30,8 @@
 
 #include "memory.hh"
 
-#include <bios.hh>
+#include "lowbios.hh"
+#include "gba/types.hh"
 
 
 
@@ -76,18 +77,18 @@ void saturn::lomem::copy( void* src, u32 srcSize, void* dst )
     
     for(u32 i = 0; i < sblockCount; ++i)
     {
-        _sat__cpu_fast_set( src, dst, sBlockBytes );
+        _sat__bios_cpu_fast_set( src, dst, sblockBytes );
     }
     
     // repositioned source address
-    const void* src2       = reinterpret_cast<void*>(((u32)src) + sblockBytes);
+    const void* src2 = reinterpret_cast<const void*>(((u32)src) + sblockBytes);
     // same for dest
-    const void* dst2       = reinterpret_cast<void*>(((u32)dst) + sblockBytes);
+    void* dst2 = reinterpret_cast<void*>(((u32)dst) + sblockBytes);
     // number of bytes to copy, blocks only
-    const u32   blockBytes = blockCount << 3;
+    const u32 blockBytes = blockCount << 3;
     
     for(u32 i = 0; i < blockCount; ++i)
     {
-        _sat__cpu_set( source, dest, blockBytes );
+        _sat__bios_cpu_set( src2, dst2, blockBytes );
     }
 }

@@ -28,18 +28,23 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef INC__LIBSATURN_GBA_COLOUR_HH
-#define INC__LIBSATURN_GBA_COLOUR_HH
+#ifndef INC__LIBSATURN_MEMORY_HH
+#define INC__LIBSATURN_MEMORY_HH
 
-#include "gba/memory.hh"
 #include "gba/types.hh"
 
-typedef unsigned short Colour;
 
-constexpr Colour rgb24to15( u8 r, u8 g, u8 b )
+
+namespace saturn
 {
-    return reinterpret_cast<Colour>((r >> 3) | ((g >> 3) << 5) | ((b >> 3) <<
-        10));
+
+namespace lomem
+{
+
+void copy( void* src, u32 srcSize, void* dst );
+
 }
 
-#endif // INC__LIBSATURN_GBA_COLOUR_HH
+}
+
+#endif // INC__LIBSATURN_MEMORY_HH

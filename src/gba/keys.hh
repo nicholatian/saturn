@@ -31,7 +31,7 @@
 #ifndef INC__LIBSATURN_GBA_KEYS_HH
 #define INC__LIBSATURN_GBA_KEYS_HH
 
-#include "types.hh"
+#include "gba/types.hh"
 
 constexpr u16 kKeyinputAPressed     = 0x1;
 constexpr u16 kKeyinputBPressed     = 0x2;

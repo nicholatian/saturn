@@ -33,7 +33,7 @@
 
 
 
-extern "C" int main( );
+int main( );
 
 
 

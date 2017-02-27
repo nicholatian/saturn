@@ -41,14 +41,19 @@ void saturn::error( saturn::Error err )
     const u16 level    = (u16)err;
     const u16 vramFill = level | (level << 8);
     
-    for(u32 i = 0; i < 0x9B00; i += 1)
+    for(u32 i = 0; i < 0x9B00; ++i)
     {
-        ((u16*)segVramBg)[i] = vramFill;
+        segVramBg[i] = vramFill;
     }
     
-    for(u32 i = 0; i < 0x10; i += 1)
     {
-        segPalBg[i] = 0x7FFF;
+    u32* const addr = (u32*)(0x2000000);
+    *addr = (u32)(&colourErrorPal);
+    }
+    
+    for(u32 i = 0; i < 0x10; ++i)
+    {
+        segPalBg[i] = (&colourErrorPal)[i];
     }
     
     *ioDispcnt = kDispcntBgMode4 | kDispcntShowBg2;

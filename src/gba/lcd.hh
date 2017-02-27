@@ -31,7 +31,7 @@
 #ifndef INC__LIBSATURN_GBA_LCD_HH
 #define INC__LIBSATURN_GBA_LCD_HH
 
-#include "types.hh"
+#include "gba/types.hh"
 
 constexpr u16 kDispcntBgMode0    = 0x0;
 constexpr u16 kDispcntBgMode1    = 0x1;

@@ -31,7 +31,7 @@
 #ifndef INC__LIBSATURN_GBA_MEMORY_HH
 #define INC__LIBSATURN_GBA_MEMORY_HH
 
-#include "types.hh"
+#include "gba/types.hh"
 
 void* const segBios    = nullptr;
 u16* const  segEwram   = reinterpret_cast<u16*>(0x2000000);
