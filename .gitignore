@@ -18,6 +18,7 @@ node_modules/
 *.exe
 *.a
 *.so
+*.sav
 
 
 
