@@ -29,6 +29,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
+'use strict'
+
 const fs   = require('fs')
 const os   = require('os')
 const endl = os.EOL
@@ -115,6 +117,9 @@ const main = (args) => {
             }
         }
     }
+    for(let i = 0; i < cfg.resource.palette.length; i++) {
+        foreman.queuePalette(cfg.resource.palette[i])
+    }
     return 0
 };
 
@@ -137,9 +142,16 @@ const finishup = () => {
         console.log('Generating      ' + cfg.metadata.filename.grey +
             '.elf'.grey + '...')
         const options = cfg.ldFlags.concat([walk(path.join(cfg.buildDir,
-            'code'), /\.o$/)/*, walk(path.join(cfg.buildDir, 'data') /\.o$/)*/,
-            '-o', path.join(process.cwd(), cfg.metadata.filename) + '.elf'],
-            cfg.libDirs, cfg.libs)
+            'code'), /\.o$/).join(' '), walk(path.join(cfg.buildDir, 'data'),
+            /\.o$/).join(' '), '-o', path.join(process.cwd(),
+            cfg.metadata.filename) + '.elf'], cfg.libDirs, cfg.libs)
+        for(let i = 0; i < options.length;) {
+            if(options[i] === '') {
+                options.splice(i, 1)
+            } else {
+                i++
+            }
+        }
         chproc.execFileSync(cfg.toolchain.linker, options, {
             cwd: process.cwd(),
             encoding: 'utf8'

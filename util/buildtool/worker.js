@@ -29,11 +29,14 @@
  *                                                                           * 
 \*****************************************************************************/
 
+'use strict'
+
 const chproc = require('child_process')
 const path   = require('path')
 
 const cfg    = require('./config')
 const colour = require('./colour')
+const conv   = require('./conv')
 
 const cc = (file, debug) => {
     try {
@@ -117,8 +120,8 @@ const grit = (file, depth, tiled, algo, reduce) => {
         file.replace(/.*\//g, '')) + '.s')
     try {
         console.log('Transmogrifying'.yellow + ' ' + file.grey + '...')
-        const options = cfg.gritFlags.concat(flags, [file.replace(/.*\//g,
-            '')])
+        let options = [file.replace(process.cwd() + '/', '')]
+        options = options.concat(cfg.gritFlags, flags)
         chproc.execFileSync(cfg.toolchain.grit, options, {
             cwd: process.cwd(),
             encoding: 'utf8'
@@ -152,6 +155,9 @@ process.on('message', (m) => {
         process.send({ done: true })
     } else if(m.type === 'image') {
         grit(m.file, m.depth, m.tiled, m.algo, m.reduce)
+        process.send({ done: true })
+    } else if(m.type === 'npal') {
+        conv.palette(m.file)
         process.send({ done: true })
     } else {
         console.error('Unsupported input for worker node!'.red.bold)

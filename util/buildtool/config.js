@@ -29,6 +29,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
+'use strict'
+
 const os   = require('os')
 const path = require('path')
 
@@ -122,7 +124,7 @@ exports.ocpyFlags = ['-O', 'binary', exports.metadata.filename + '.elf',
 exports.fixFlags  = [exports.metadata.filename + '.gba', '-p',
     '-t' + exports.metadata.title, '-c' + exports.metadata.romCode,
     '-m' + exports.metadata.romMaker, '-v0']
-exports.gritFlags = ['-m', '-fh!', '-gT70C8A8']
+exports.gritFlags = ['-fts', '-m', '-fh!', '-gT70C8A8']
 
 exports.buildDir = path.join(os.tmpdir(), 'saturn-buildtool')
 
@@ -192,6 +194,13 @@ exports.resource.image = {
             '16bpp': []
         }
     }
+}
+
+exports.resource.palette = []
+
+for(let i = 0; i < userconf.resource.npalDirs.length; i++) {
+    exports.resource.palette = exports.resource.palette.concat(walk(
+        userconf.resource.npalDirs[i], /\.npal$/))
 }
 
 const imgDirs = userconf.resource.imageDirs

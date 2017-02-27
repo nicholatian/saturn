@@ -31,10 +31,6 @@
 
 'use strict'
 
-const fs = require('fs')
+var exports = module.exports = {}
 
-if(process.argv.length === 3 && process.argv[2] !== '--clean') {
-    module.exports = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'))
-} else {
-    module.exports = {}
-}
+exports.palette = require('./conv/palette')

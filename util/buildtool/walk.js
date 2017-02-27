@@ -29,10 +29,12 @@
  *                                                                           * 
 \*****************************************************************************/
 
+'use strict'
+
 const fs   = require('fs');
 const path = require('path');
 
-var exports = (dir, match) => {
+function walk(dir, match) {
     var   results = []
     const list    = fs.readdirSync(dir)
     var   pending = list.length
@@ -41,24 +43,26 @@ var exports = (dir, match) => {
     }
     for(let i = 0; i < list.length; i++) {
         const file = path.join(dir, list[i])
-        // Ensure we want the file
-        if(file.match(match)) {
+        const stat = fs.statSync(file)
+        // Check if it is a directory
+        if(stat && stat.isDirectory()) {
+            // If so, walk again
+            results = results.concat(walk(file, match))
+            if(!--pending) {
+                return results
+            }
+        } else if(file.match(match)) {
+            // Ensure we want the file
             results.push(file)
-            const stat = fs.statSync(file)
-            // Check if it is a directory
-            if(stat && stat.isDirectory()) {
-                // If so, walk again
-                results = results.concat(exports(file, match))
-                if(!--pending) {
-                    return results
-                }
-            } else if(!--pending) {
+            if(!--pending) {
                 return results
             }
         } else if(!--pending) {
             return results
         }
     }
-};
+}
 
-module.exports = exports
+module.exports = (dir, match) => {
+    return walk(dir, match)
+};

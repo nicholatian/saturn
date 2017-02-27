@@ -29,6 +29,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
+'use strict'
+
 module.exports = (a) => { // placeholder
     return a              // if the placeholder was passed, return
         ? (                // a random number from 0 to 15

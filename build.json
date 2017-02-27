@@ -36,7 +36,9 @@
                 "lz77": {
                     "1bpp": [],
                     "2bpp": [],
-                    "4bpp": [],
+                    "4bpp": [
+                        "data/image"
+                    ],
                     "8bpp": []
                 },
                 "huff": {
@@ -87,7 +89,7 @@
             
         ],
         "npalDirs": [
-            
+            "data/image"
         ],
         "blobDirs": [
             

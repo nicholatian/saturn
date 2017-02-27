@@ -29,6 +29,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
+'use strict'
+
 const chproc = require('child_process')
 const os     = require('os')
 const path   = require('path')
@@ -104,6 +106,16 @@ const getWorker = () => {
     return nextWorker++
 }
 
+const queueExec = (opts) => {
+    const id = getWorker()
+    workers[id].on('exit', exports.allDone)
+    workers[id].send(opts)
+    startCount++
+    if(usedWorkers < 4) {
+        usedWorkers++
+    }
+};
+
 exports.queueCode = (src) => {
     if(src.match(/\.c$/)) {
         var srcType = 'c'
@@ -115,12 +127,15 @@ exports.queueCode = (src) => {
         console.error('Error: Invalid source file placed in queue: ' + src)
         return
     }
-    const id = getWorker()
-    workers[id].send({ file: src, type: srcType, debug: cfg.debug })
-    startCount++
-    if(usedWorkers < 4) {
-        usedWorkers++
+    queueExec({ file: src, type: srcType, debug: cfg.debug })
+};
+
+exports.queuePalette = (src) => {
+    if(!src.match(/\.npal$/)) {
+        console.error('Error: Invalid source file placed in queue: ' + src)
+        return
     }
+    queueExec({ file: src, type: 'npal' })
 };
 
 exports.queueImage = (src) => {
@@ -164,9 +179,6 @@ exports.queueImage = (src) => {
         var tiled  = false
         var reduce = false
     }
-    const id = getWorker()
-    workers[id].on('exit', workerDone)
-    workers[id].send({ file: src, type: 'image', depth: depth, tiled: tiled,
+    queueExec({ file: src, type: 'image', depth: depth, tiled: tiled,
         algo: algo, reduce: reduce })
-    startCount++
 };
