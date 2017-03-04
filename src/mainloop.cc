@@ -30,9 +30,24 @@
 
 #include "mainloop.hh"
 
+#include <gba/types.hh>
 
+
+extern "C"
+{
+
+u32 _sat__hyper;
+
+}
+
+constexpr u32 kHyperGamepakYanked  = 0b1000;
+constexpr u32 kHyperKeypadPressed  = 0b0100;
+constexpr u32 kHyperHblankOccurred = 0b0010;
+constexpr u32 kHyperVblankOccurred = 0b0001;
 
 bool saturn::mainloop( )
 {
+    _sat__hyper = 0;
+    
     return false;
 }
