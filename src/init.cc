@@ -30,13 +30,13 @@
 
 #include "init.hh"
 
-#include "error.hh"
+#include "fatal.hh"
 
 
 
 bool saturn::init( )
 {
-    saturn::error( Error::BoundsError );
+    saturn::fatal( Error::BoundsError );
     
     return false;
 }

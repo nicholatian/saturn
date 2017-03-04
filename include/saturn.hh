@@ -32,7 +32,7 @@
 #define LIBSATURN_HH
 
 #include "saturn/bios.hh"
-#include "saturn/error.hh"
+#include "saturn/fatal.hh"
 #include "saturn/init.hh"
 #include "saturn/mainloop.hh"
 #include "saturn/math.hh"
