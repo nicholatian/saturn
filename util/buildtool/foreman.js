@@ -13,7 +13,7 @@
  *                                   Saturn                                  * 
  *     A general-purpose game engine for the Nintendo® Game Boy Advance™     * 
  *                                                                           * 
- *                       Copyright © 2016  Nicholatian                       * 
+ *                     Copyright © 2016-2017 Nicholatian                     * 
  *                                                                           * 
  *  Licensed under the Apache License, Version 2.0 (the “License”); you may  * 
  * not use this file except in compliance with the License. You may obtain a * 
