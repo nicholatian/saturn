@@ -22,6 +22,14 @@ node_modules/
 
 
 
+## IDA Pro
+
+*.id*
+*.nam
+*.til
+
+
+
 ## Emacs
 
 *~
