@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef LIBSATURN_HIMEM_HH
-#define LIBSATURN_HIMEM_HH
+#ifndef INC__LIBSATURN_HIMEM_HH
+#define INC__LIBSATURN_HIMEM_HH
 
 #include "gba/types.hh"
 
@@ -53,4 +53,4 @@ void* realloc( void* ptr, u32 size );
 
 
 
-#endif // LIBSATURN_HIMEM_HH
+#endif // INC__LIBSATURN_HIMEM_HH

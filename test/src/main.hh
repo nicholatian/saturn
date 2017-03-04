@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef SATURNTEST_MAIN_HH
-#define SATURNTEST_MAIN_HH
+#ifndef INC__SATURNTEST_MAIN_HH
+#define INC__SATURNTEST_MAIN_HH
 
 
 
@@ -37,4 +37,4 @@ int main( );
 
 
 
-#endif // SATURNTEST_MAIN_HH
+#endif // INC__SATURNTEST_MAIN_HH

@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef LIBSATURN_HH
-#define LIBSATURN_HH
+#ifndef INC__LIBSATURN_HH
+#define INC__LIBSATURN_HH
 
 #include "saturn/bios.hh"
 #include "saturn/fatal.hh"
@@ -37,4 +37,4 @@
 #include "saturn/mainloop.hh"
 #include "saturn/math.hh"
 
-#endif // LIBSATURN_HH
+#endif // INC__LIBSATURN_HH

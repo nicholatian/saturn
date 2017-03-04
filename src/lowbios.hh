@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef GBA_BIOS_HH
-#define GBA_BIOS_HH
+#ifndef INC__LIBSATURN_LOWBIOS_HH
+#define INC__LIBSATURN_LOWBIOS_HH
 
 #include <gba/types.hh>
 
@@ -97,4 +97,4 @@ void _sat__bios_multi_boot( void* mb_param, u32 mode );
 
 
 
-#endif // GBA_BIOS_HH
+#endif // INC__LIBSATURN_LOWBIOS_HH

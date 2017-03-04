@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef LIBSATURN_BIOS_HH
-#define LIBSATURN_BIOS_HH
+#ifndef INC__LIBSATURN_BIOS_HH
+#define INC__LIBSATURN_BIOS_HH
 
 #include <gba/types.hh>
 
@@ -50,4 +50,4 @@ void waitVblank( );
 
 
 
-#endif // LIBSATURN_BIOS_HH
+#endif // INC__LIBSATURN_BIOS_HH

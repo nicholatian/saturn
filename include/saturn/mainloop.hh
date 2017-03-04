@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef LIBSATURN_MAINLOOP_HH
-#define LIBSATURN_MAINLOOP_HH
+#ifndef INC__LIBSATURN_MAINLOOP_HH
+#define INC__LIBSATURN_MAINLOOP_HH
 
 
 
@@ -42,4 +42,4 @@ bool mainloop( );
 
 
 
-#endif // LIBSATURN_MAINLOOP_HH
+#endif // INC__LIBSATURN_MAINLOOP_HH

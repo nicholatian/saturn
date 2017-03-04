@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef LIBSATURN_ERROR_HH
-#define LIBSATURN_ERROR_HH
+#ifndef INC__LIBSATURN_ERROR_HH
+#define INC__LIBSATURN_ERROR_HH
 
 #include "gba/types.hh"
 
@@ -71,4 +71,4 @@ void fatal( Error err );
 
 
 
-#endif // LIBSATURN_ERROR_HH
+#endif // INC__LIBSATURN_ERROR_HH

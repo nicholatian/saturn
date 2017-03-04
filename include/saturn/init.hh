@@ -28,8 +28,8 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef LIBSATURN_INIT_HH
-#define LIBSATURN_INIT_HH
+#ifndef INC__LIBSATURN_INIT_HH
+#define INC__LIBSATURN_INIT_HH
 
 
 
@@ -42,4 +42,4 @@ bool init( );
 
 
 
-#endif // LIBSATURN_INIT_HH
+#endif // INC__LIBSATURN_INIT_HH
