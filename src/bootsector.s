@@ -38,9 +38,9 @@
 .section .init
 .balign 4, 0
 .arm
-.globl __start
+.globl _sat__start
 
-__start:
+_sat__start:
     
     B       _sat__rom_start
 
@@ -107,26 +107,99 @@ __start:
 
 _sat__rom_start:
     
-    MOV     R0, #0x12               @ Switch to IRQ Mode
+    BL      .Linit_iwram
+    BL      .Linit_ioregs
+    MOV     R0, #0x12         @ Switch to IRQ mode
     MSR     CPSR, R0
-    MOV     R0, #0x1F               @ Switch to System Mode
+    LDR     SP, =0x3007FA0
+    MOV     R0, #0x1F         @ Switch to system mode
     MSR     CPSR, R0
-    LDR     R1, =0x3007FFC          @ Set IRQ Handler Address (32-bit ARM mode)
-    ADR     R0, _sat__irq_handler
+    LDR     R1, =0x3007FFC    @ Set IRQ handler address (32-bit ARM mode)
+    LDR     R0, =.Lirq_handler
     STR     R0, [R1]
-    LDR     R1, =main               @ Start & Switch to 16bit Code
+    LDR     SP, =0x3007E40
+    LDR     R1, =main         @ Start & switch to thumb-1 mode
     MOV     LR, PC
     BX      R1
-    B       _sat__rom_start         @ Reset
+    B       _sat__rom_start   @ Reset
+
+.pool
+
+.Linit_iwram:
+    
+    LDR     R0, =_sat___iwram_load
+    LDR     R1, =_sat___iwram_start
+    LDR     R2, =_sat___iwram_size
+    LSR     R2, R2, #2
+    MOV     R3, #0x4000000
+    ORR     R2, R3
+    @SWI     0xB
+    BX      LR
+
+.pool
+
+.Linit_ioregs:
+    BX      LR
 
 @@
-@@ Interrupt Branch Process (Table Lookup) 32Bit        25-60c-
+@@ Interrupt Branch Process (Table Lookup)
 @@
 
-.globl _sat__irq_handler
+@.section .iwram
+
 .balign 4, 0
 .arm
 
-_sat__irq_handler:
+.Lirq_handler:
     
+    MOV     R0, #0x4000000
+    ADD     R0, #0x200
+    @ Disable IME to prevent nested interrupts
+    MOV     R1, #0
+    STR     R1, [R0]
+    @ Check if we have a stack overflow
+    MOV     R2, #0x1F @ Switch to System mode
+    MSR     CPSR, R2  @
+    MOV     R3, SP
+    MOV     R2, #0x12 @ Switch back to Interrupt mode
+    MSR     CPSR, R2  @
+    LDR     R2, =_sat___iwram_total_end
+    @ Is the system SP lower than the end of occupied IWRAM?
+    CMP     R3, R2
+    BCC     .Lstack_overflow
+    @ Check IF to see which interrupt(s) were triggered
+    LDRH    R2, [R0,#8]
+    LDR     R1, =_sat__hyper
+    
+    AND     R3, R2, #0x2000
+    BNE     .Lhandle_gamepak
+    AND     R3, R2, #0x0
+    BNE     .Lhandle_vblank
+    AND     R3, R2, #0x1
+    BNE     .Lhandle_hblank
+    AND     R3, R2, #0x1000
+    BNE     .Lhandle_keypad
+    BX      LR
+    
+.Lstack_overflow:
+    LDR     R0, =_sat__stack_overflow @ Point of no return.
+    BX      R0
+    
+.pool
+
+.Lhandle_gamepak:
+.Lhandle_keypad:
+    STRH    R3, [R2] @ Acknowledge IRQ as handled
+    LSR     R3, R3, #10 @ Convert IF bit to hyper bit
+    B       .Lfinish_handle
+    
+.Lhandle_hblank:
+.Lhandle_vblank:
+    STRH    R3, [R2] @ Acknowledge IRQ as handled
+    ADD     R3, R3, #1 @ Convert IF bit to hyper bit
+    
+.Lfinish_handle:
+    LDR     R0, [R1] @ Get previous value of hyper
+    ORR     R3, R0
+    STR     R3, [R1] @ Place in newly set bit
     BX      LR
