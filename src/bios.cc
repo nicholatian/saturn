@@ -1,3 +1,4 @@
+/// -*- coding: utf-8; mode: C++; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 /*****************************************************************************\
  *                                                                           * 
  *   .d8888b.          d8888 88888888888 888     888 8888888b.  888b    888  * 
@@ -30,7 +31,12 @@
 
 #include "bios.hh"
 
+#include "gba/types.hh"
 #include "lowbios.hh"
+
+
+
+using saturn::u32;
 
 
 

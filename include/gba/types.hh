@@ -1,3 +1,4 @@
+/// -*- coding: utf-8; mode: C++; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 /*****************************************************************************\
  *                                                                           * 
  *   .d8888b.          d8888 88888888888 888     888 8888888b.  888b    888  * 
@@ -28,23 +29,28 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef INC__LIBSATURN_MEMORY_HH
-#define INC__LIBSATURN_MEMORY_HH
-
-#include "gba/types.hh"
-
-
+#ifndef INC__LIBSATURN_GBA_TYPES_HH
+#define INC__LIBSATURN_GBA_TYPES_HH
 
 namespace saturn
 {
 
-namespace lomem
-{
+using u8  = unsigned char;
+using u16 = unsigned short;
+using u32 = unsigned int;
+using u64 = unsigned long long;
+using s8  = signed char;
+using s16 = signed short;
+using s32 = signed int;
+using s64 = signed long long;
 
-void copy( void* src, u32 srcSize, void* dst );
+template<int s> struct _tmp_ptri;
+template<> struct _tmp_ptri<2> { using type = u16; };
+template<> struct _tmp_ptri<4> { using type = u32; };
+template<> struct _tmp_ptri<8> { using type = u64; };
+
+using ptri = typename _tmp_ptri<sizeof(void*)>::type;
 
 }
 
-}
-
-#endif // INC__LIBSATURN_MEMORY_HH
+#endif // INC__LIBSATURN_GBA_TYPES_HH

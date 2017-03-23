@@ -1,3 +1,4 @@
+/// -*- coding: utf-8; mode: C++; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 /*****************************************************************************\
  *                                                                           * 
  *   .d8888b.          d8888 88888888888 888     888 8888888b.  888b    888  * 
@@ -28,29 +29,112 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef INC__LIBSATURN_HIMEM_HH
-#define INC__LIBSATURN_HIMEM_HH
-
-#include "gba/types.hh"
+#ifndef INC__LIBSATURN_ERROR_HH
+#define INC__LIBSATURN_ERROR_HH
 
 
 
 namespace saturn
 {
-
-namespace himem
-{
-
-void* alloc( u32 size );
-
-bool dealloc( void* ptr );
-
-void* realloc( void* ptr, u32 size );
-
+    enum class ErrorCat : saturn::u32
+    {
+        Success = 0,
+        Unknown,
+        System,
+        Video,
+        Audio,
+        IO,
+        Network,
+        Emu
+    };
+    
+    using ErrorEntry = saturn::u32;
+    
+    enum class ErrorEntrySystem : saturn::u32
+    {
+        Success = 0,
+        Unknown,
+        LogicError,
+        InvalidArgument,
+        DomainError,
+        LengthError,
+        OutOfRange,
+        RuntimeError,
+        RangeError,
+        OverflowError,
+        UnderflowError
+    };
+    
+    enum class ErrorEntryVideo : saturn::u32
+    {
+        Success = 0,
+        Unknown,
+        VramExhausted,
+        OamExhausted
+    };
+    
+    enum class ErrorEntryAudio : saturn::u32
+    {
+        
+    };
+    
+    enum class ErrorEntryIO : saturn::u32
+    {
+        
+    };
+    
+    enum class ErrorEntryNetwork : saturn::u32
+    {
+        
+    };
+    
+    enum class ErrorEntryEmu : saturn::u32
+    {
+        
+    };
+    
+    enum class ErrorEntryUnknown : saturn::u32
+    {
+        
+    };
+    
+    class Error
+    {
+    public:
+        Error( )
+            : raw(0x0)
+            { }
+        Error( ErrorCat category, ErrorEntry entry )
+            : raw((static_cast<saturn::u32>(category) & 0xFFF)
+                  | (static_cast<saturn::u32>(entry) & 0xFFFFF))
+            { }
+        ~Error( ) { }
+        
+        bool operator!( )
+        {
+            return raw == 0;
+        }
+        
+        saturn::u32 operator~( )
+        {
+            return raw;
+        }
+        
+        bool operator==( Error err )
+        {
+            return raw == err.raw;
+        }
+        
+        bool operator!=( Error err )
+        {
+            return raw != err.raw;
+        }
+        
+    private:
+        const saturn::u32 raw;
+    };
 }
 
-}
 
 
-
-#endif // INC__LIBSATURN_HIMEM_HH
+#endif // INC__LIBSATURN_ERROR_HH

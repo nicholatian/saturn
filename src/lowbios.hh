@@ -1,3 +1,4 @@
+/// -*- coding: utf-8; mode: C++; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 /*****************************************************************************\
  *                                                                           * 
  *   .d8888b.          d8888 88888888888 888     888 8888888b.  888b    888  * 
@@ -40,34 +41,34 @@ extern "C"
 
 void _sat__bios_soft_reset( );
 
-void _sat__bios_register_ram_reset( u32 flags );
+void _sat__bios_register_ram_reset( saturn::u32 flags );
 
 void _sat__bios_halt( );
 
 void _sat__bios_stop( );
 
-void _sat__bios_intr_wait( u32 flag_clear, u32 irq );
+void _sat__bios_intr_wait( saturn::u32 flag_clear, saturn::u32 irq );
 
 void _sat__bios_vblank_intr_wait( );
 
-s32 _sat__bios_div( s32 num, s32 den );
+saturn::s32 _sat__bios_div( saturn::s32 num, saturn::s32 den );
 
-s32 _sat__bios_div_arm( s32 den, s32 num );
+saturn::s32 _sat__bios_div_arm( saturn::s32 den, saturn::s32 num );
 
-u32 _sat__bios_sqrt( u32 num );
+saturn::u32 _sat__bios_sqrt( saturn::u32 num );
 
-u32 _sat__bios_arc_tan( s16 dydx );
+saturn::u32 _sat__bios_arc_tan( saturn::s16 dydx );
 
-u32 _sat__bios_arc_tan2( s16 x, s16 y );
+saturn::u32 _sat__bios_arc_tan2( saturn::s16 x, saturn::s16 y );
 
-void _sat__bios_cpu_set( const void* src, void* dst, u32 mode );
+void _sat__bios_cpu_set( const void* src, void* dst, saturn::u32 mode );
 
-void _sat__bios_cpu_fast_set( const void* src, void* dst, u32 mode );
+void _sat__bios_cpu_fast_set( const void* src, void* dst, saturn::u32 mode );
 
-void _sat__bios_bg_affine_set( const void* src, void* dst, s32 num );
+void _sat__bios_bg_affine_set( const void* src, void* dst, saturn::s32 num );
 
-void _sat__bios_obj_affine_set( const void* src, void* dst, s32 num,
-    s32 offset );
+void _sat__bios_obj_affine_set( const void* src, void* dst, saturn::s32 num,
+    saturn::s32 offset );
 
 void _sat__bios_bit_unpack( const void* src, void* dst, void* bup );
 
@@ -87,11 +88,11 @@ void _sat__bios_diff_8bit_unfilter_vram( const void* src, void* dst );
 
 void _sat__bios_diff_16bit_unfilter( const void* src, void* dst );
 
-void _sat__bios_sound_bias( u32 bias );
+void _sat__bios_sound_bias( saturn::u32 bias );
 
-void _sat__bios_midi_key_to_freq( void* wa, u8 mk, u8 fp );
+void _sat__bios_midi_key_to_freq( void* wa, saturn::u8 mk, saturn::u8 fp );
 
-void _sat__bios_multi_boot( void* mb_param, u32 mode );
+void _sat__bios_multi_boot( void* mb_param, saturn::u32 mode );
 
 }
 

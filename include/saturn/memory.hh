@@ -1,3 +1,4 @@
+/// -*- coding: utf-8; mode: C++; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 /*****************************************************************************\
  *                                                                           * 
  *   .d8888b.          d8888 88888888888 888     888 8888888b.  888b    888  * 
@@ -28,15 +29,59 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef INC__LIBSATURN_GBA_TYPES_HH
-#define INC__LIBSATURN_GBA_TYPES_HH
+#ifndef INC__LIBSATURN_MEMORY_HH
+#define INC__LIBSATURN_MEMORY_HH
 
-typedef unsigned char  u8;
-typedef unsigned short u16;
-typedef unsigned long  u32;
+#include "gba/types.hh"
+#include "error.hh"
 
-typedef signed char    s8;
-typedef signed short   s16;
-typedef signed long    s32;
 
-#endif // INC__LIBSATURN_GBA_TYPES_HH
+namespace saturn
+{
+    namespace lomem
+    {
+        saturn::Error copy( void* src, saturn::ptri srcSize, void* dst );
+
+        inline bool isWritable( void* ptr )
+        {
+            const saturn::ptri val = reinterpret_cast<saturn::ptri>(ptr);
+            
+            if((val >= 0x2000000 && val < 0x2040000)
+               || (val >= 0x3000000 && val < 0x3008000)
+               || (val >= 0x4000000 && val < 0x4000FFF) // not a typo
+               || (val >= 0x5000000 && val < 0x5000400)
+               || (val >= 0x6000000 && val < 0x6018000)
+               || (val >= 0x7000000 && val < 0x7000400)
+               || (val >= 0xE000000 && val < 0xE010000))
+            {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        inline bool isReadable( void* ptr )
+        {
+            const saturn::ptri val = reinterpret_cast<saturn::ptri>(ptr);
+            
+            if(isWritable( ptr ) || (val >= 0x8000000 && val < 0x9000000))
+            {
+                return true;
+            }
+            
+            return false;
+        }
+    }
+    
+    namespace himem
+    {
+        saturn::Error alloc( saturn::ptri size, void*& ptr,
+                             bool clear = false );
+        
+        saturn::Error dealloc( void* ptr );
+        
+        saturn::Error realloc( void*& ptr, saturn::ptri size );
+    }
+}
+
+#endif // INC__LIBSATURN_MEMORY_HH

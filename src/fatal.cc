@@ -1,3 +1,4 @@
+/// -*- coding: utf-8; mode: C++; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 /*****************************************************************************\
  *                                                                           * 
  *   .d8888b.          d8888 88888888888 888     888 8888888b.  888b    888  * 
@@ -38,12 +39,12 @@
 
 extern "C" void _sat__stack_overflow( )
 {
-    saturn::fatal( saturn::Error::StackOverflow );
+    saturn::fatal( saturn::FatalErr::StackOverflow );
 }
 
 
 
-void saturn::fatal( saturn::Error err )
+void saturn::fatal( saturn::FatalErr err )
 {
     const u16 level    = static_cast<u16>(err);
     const u16 vramFill = level | (level << 8);

@@ -1,3 +1,4 @@
+/// -*- coding: utf-8; mode: C++; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 /*****************************************************************************\
  *                                                                           * 
  *   .d8888b.          d8888 88888888888 888     888 8888888b.  888b    888  * 
@@ -28,47 +29,42 @@
  *                                                                           * 
 \*****************************************************************************/
 
-#ifndef INC__LIBSATURN_ERROR_HH
-#define INC__LIBSATURN_ERROR_HH
+#ifndef INC__LIBSATURN_FATAL_HH
+#define INC__LIBSATURN_FATAL_HH
 
 #include "gba/types.hh"
 
 
 
-extern "C"
-{
+extern saturn::u16 colourErrorPal;
 
-extern u16 colourErrorPal;
 
-}
 
 namespace saturn
 {
-
-enum class Error : u16
-{
-    Success       = 0x0, // Success, yay!
-    LogicError    = 0x1, // Logical program failure
-    LengthError   = 0x2, // Bad length (declaration)
-    Unassigned3   = 0x3,
-    RangeError    = 0x4, // Bad length (operation)
-    Unassigned5   = 0x5,
-    Underflow     = 0x6, // Floating point madness
-    Unassigned7   = 0x7,
-    Overflow      = 0x8, // Signed integer madness
-    HardwareFault = 0x9, // Something bad happened outside software
-    StackOverflow = 0xA, // Lower limit of the stack reached
-    BoundsError   = 0xB, // Accessing memory regions that don’t exist
-    NullReference = 0xC, // Dereferencing would lead to BIOS
-    HeapOverflow  = 0xD, // All EWRAM is exhausted
-    UnassignedE   = 0xE,
-    UnknownError  = 0xF  // For when none of the others make sense
-};
-
-void fatal( Error err );
-
+    enum class FatalErr
+    {
+        Success       = 0x0, // Success, yay!
+        LogicError    = 0x1, // Logical program failure
+        LengthError   = 0x2, // Bad length (declaration)
+        Unassigned3   = 0x3,
+        RangeError    = 0x4, // Bad length (operation)
+        Unassigned5   = 0x5,
+        Underflow     = 0x6, // Floating point madness
+        Unassigned7   = 0x7,
+        Overflow      = 0x8, // Signed integer madness
+        HardwareFault = 0x9, // Something bad happened outside software
+        StackOverflow = 0xA, // Lower limit of the stack reached
+        BoundsError   = 0xB, // Accessing memory regions that don’t exist
+        NullReference = 0xC, // Dereferencing would lead to BIOS
+        HeapOverflow  = 0xD, // All EWRAM is exhausted
+        UnassignedE   = 0xE,
+        UnknownError  = 0xF  // For when none of the others make sense
+    };
+    
+    void fatal( FatalErr err );
 }
 
 
 
-#endif // INC__LIBSATURN_ERROR_HH
+#endif // INC__LIBSATURN_FATAL_HH

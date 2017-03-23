@@ -1,3 +1,4 @@
+/// -*- coding: utf-8; mode: C++; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 /*****************************************************************************\
  *                                                                           * 
  *   .d8888b.          d8888 88888888888 888     888 8888888b.  888b    888  * 
@@ -30,12 +31,48 @@
 
 #include "memory.hh"
 
-#include "lowbios.hh"
+#include "fatal.hh"
 #include "gba/types.hh"
+#include "lowbios.hh"
 
 
 
-/** ============================ F U N C T I O N ============================ *
+using saturn::u32;
+using saturn::u16;
+using saturn::u8;
+using saturn::ptri;
+
+using saturn::ErrorCat;
+using saturn::ErrorEntry;
+using saturn::ErrorEntrySystem;
+using saturn::Error;
+
+
+
+extern ptri _sat___ewram_start;
+
+
+
+namespace
+{
+    constexpr u32 kHeapSize   = 0x40000;
+    constexpr u32 kMaxAllocs  = 0x400;
+    constexpr u32 kChunkSize  = 32;
+    constexpr u32 kChunkSizeB = 5; // used for bit shift division
+    constexpr u32 kHeapBlocks = kHeapSize / kChunkSize;
+
+    void* const kHeapStart = reinterpret_cast<void*>(_sat___ewram_start);
+    void* const kHeapEnd   = reinterpret_cast<void*>(_sat___ewram_start +
+                                                     kHeapSize - 1);
+    
+    u32   blockCount;
+    void* blocks[kMaxAllocs];
+    u16   blockChunkCounts[kMaxAllocs];
+}
+
+
+
+/** ;============================ F U N C T I O N ============================ *
  * 
  * TITLE:       LoMem copy function
  * DESCRIPTION: This function wraps the AGB BIOS functions which implement
@@ -50,45 +87,176 @@
  *              as words then dwords then bytes. See GBATek for details on how
  *              CpuSet and CpuFastSet operate.
  * 
+ * PARAMETER: Source address to start copying from
+ * PARAMETER: Size of source, in bytes.
+ * PARAMETER: Destination to copy source to.
+ * 
  */
 
-void saturn::lomem::copy( void* src, u32 srcSize, void* dst )
+saturn::Error saturn::lomem::copy( void* src, u32 srcSize, void* dst )
 {
-    // These are all used verbatim by the copy loops
+    // Check the bounds of the source and destination address
     
-    // sblockCount = srcSize / 32
-    const u32 sblockCount = srcSize >> 5;
-    // blockCount = (srcSize / 8) - (sblockCount * 4)
-    const u32 blockCount  = (srcSize >> 3) - (sblockCount << 2);
-    // wordCount = (srcSize / 4) - (sblockCount * 8) - (blockCount * 2)
-    const u32 wordCount   = (srcSize >> 2) - (sblockCount << 3) -
-        (blockCount << 1);
-    // dwordCount = (srcSize / 2) - (sblockCount * 16) - (blockCount * 4) *
-    //              (wordCount * 2)
-    const u32 dwordCount  = (srcSize >> 1) - (sblockCount << 4) -
-        (blockCount << 2) - (wordCount << 1);
-    // dwordCount = srcSize - (sblockCount * 32) - (blockCount * 8) *
-    //              (wordCount * 4) - (dwordCount * 2)
-    const u32 byteCount   = srcSize - (sblockCount << 5) - (blockCount << 3) -
-        (wordCount << 2) - (dwordCount << 1);
-    
-    // number of bytes to copy, sblocks only
-    const u32 sblockBytes = sblockCount << 5;
-    
-    for(u32 i = 0; i < sblockCount; ++i)
+    if(!isReadable( src ) || !isWritable( dst ))
     {
-        _sat__bios_cpu_fast_set( src, dst, sblockBytes );
+        return Error( ErrorCat::System,
+                      static_cast<ErrorEntry>(ErrorEntrySystem::OutOfRange)
+            );
     }
     
-    // repositioned source address
-    const void* src2 = reinterpret_cast<const void*>(((u32)src) + sblockBytes);
-    // same for dest
-    void* dst2 = reinterpret_cast<void*>(((u32)dst) + sblockBytes);
-    // number of bytes to copy, blocks only
-    const u32 blockBytes = blockCount << 3;
-    
-    for(u32 i = 0; i < blockCount; ++i)
+    if(srcSize == 0 || srcSize > 0x40000)
     {
-        _sat__bios_cpu_set( src2, dst2, blockBytes );
+        return Error( ErrorCat::System, static_cast<ErrorEntry>(
+                      ErrorEntrySystem::InvalidArgument
+                          ) );
     }
+    
+    // We have four possible magnitudes of copying that can happen in this
+    // endeavour, and we’ve assigned these magnitudes to the data by name.
+    // There are:
+    //   - Quadwords (32 bytes)
+    //   - Words (4 bytes)
+    //   - Halfwords (2 bytes)
+    //   - Bytes
+    // Quadwords are copied using the CpuFastSet BIOS function, words are
+    // copied using the CpuSet BIOS function, and halfwords/bytes are copied
+    // by the CPU manually.
+    
+    // Let’s calculate the sizes we need for the different copying phases
+    const u32 qwordCt = (srcSize >> 5) << 5;
+    const u32 wordCt  = ((srcSize >> 2) << 2) - (qwordCt << 3);
+    const u32 hwordCt = ((srcSize >> 1) << 1) - (wordCt << 1);
+    const u32 byteCt  = srcSize - (hwordCt << 1);
+    
+    // Phase 1:
+    // Copy over all quadwords
+    {
+        // Divide qwordCt by 8 to get same count in words
+        // No mode sentinel needed for copy operation
+        const u32 mode = qwordCt >> 3;
+        
+        for(u32 i = 0; i < qwordCt; ++i)
+        {
+            _sat__bios_cpu_fast_set( src, dst, mode );
+            
+            src = reinterpret_cast<void*>(reinterpret_cast<ptri>(src) + 32);
+            dst = reinterpret_cast<void*>(reinterpret_cast<ptri>(dst) + 32);
+        }
+    }
+    
+    // Phase 2:
+    // Copy over all leftover words
+    {
+        // Word count can be passed as-is, we’re using 32-bit mode
+        // Set bit 26 to signal that we want 32-bit mode
+        const u32 mode = wordCt | 0x4000000;
+        
+        for(u32 i = 0; i < wordCt; ++i)
+        {
+            _sat__bios_cpu_set( src, dst, mode );
+            
+            src = reinterpret_cast<void*>(reinterpret_cast<ptri>(src) + 4);
+            dst = reinterpret_cast<void*>(reinterpret_cast<ptri>(dst) + 4);
+        }
+    }
+    
+    // Phase 3:
+    // Copy over all leftover halfwords
+    for(u32 i = 0; i < hwordCt; ++i)
+    {
+        *reinterpret_cast<u16*>(dst) = *reinterpret_cast<u16*>(src);
+        
+        src = reinterpret_cast<void*>(reinterpret_cast<ptri>(src) + 2);
+        dst = reinterpret_cast<void*>(reinterpret_cast<ptri>(dst) + 2);
+    }
+    
+    // Phase 4:
+    // Copy over all leftover bytes
+    for(u32 i = 0; i < byteCt; ++i)
+    {
+        *reinterpret_cast<u8*>(dst) = *reinterpret_cast<u8*>(src);
+        
+        src = reinterpret_cast<void*>(reinterpret_cast<ptri>(src) + 1);
+        dst = reinterpret_cast<void*>(reinterpret_cast<ptri>(dst) + 1);
+    }
+    
+    return Error( );
+}
+
+
+
+saturn::Error saturn::himem::alloc( u32 size, void*& ret, bool clear )
+{
+    if(size == 0 || size > kHeapSize)
+    {
+        return Error( ErrorCat::System, static_cast<ErrorEntry>(
+                          ErrorEntrySystem::InvalidArgument) );
+    }
+    
+    // Calculate number of chunks needed
+    // Usually we’ll want to round up to the nearest chunk after doing
+    // floored division, so we get enough space
+    bool roundUp = true;
+    
+    // See if the size is on a chunk boundary
+    if((size >> kChunkSizeB) << kChunkSizeB == size)
+    {
+        // Yes, so don’t round up
+        roundUp = false;
+    }
+    
+    // Actually get the number of chunks
+    const u32 chunkCount = (size >> kChunkSizeB) << (kChunkSizeB +
+                                                     (roundUp ? 1 : 0));
+    
+    // Search for sufficient space in memory to allocate
+    void* addr = nullptr;
+    
+    {
+        auto err = getAddress( chunkCount, addr );
+        if(err)
+        {
+            return err;
+        }
+    }
+    
+    // Shuffle through the allocation dictionary for a free slot
+    u32  slot  = 0;
+    bool found = false;
+    
+    while(slot < kMaxAllocs && blocks[slot] != nullptr)
+    {
+        ++slot;
+    }
+    
+    if(slot >= kMaxAllocs)
+    {
+        saturn::fatal( FatalErr::HeapOverflow );
+        // Never returns, only here to satisfy the compiler
+        return Error( );
+    }
+    
+    // Note the allocation
+    blocks[slot]           = addr;
+    blockChunkCounts[slot] = chunkCount;
+    
+    // If requested, clear the allocated memory
+    if(clear)
+    {
+        const inflSize = chunkCount << kChunkSizeB;
+        
+        saturn::lomem::fill( 0, inflSize, addr );
+    }
+    
+    // Hand the memory back to the caller
+    ret = addr;
+    
+    return Error( ); // Success!
+}
+
+
+
+saturn::Error saturn::himem::dealloc( void* ptr )
+{
+    return Error( );
 }

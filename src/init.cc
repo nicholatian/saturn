@@ -36,7 +36,7 @@
 
 bool saturn::init( )
 {
-    saturn::fatal( Error::BoundsError );
+    saturn::fatal( FatalErr::BoundsError );
     
     return false;
 }

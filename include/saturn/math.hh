@@ -1,3 +1,4 @@
+/// -*- coding: utf-8; mode: C++; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 /*****************************************************************************\
  *                                                                           * 
  *   .d8888b.          d8888 88888888888 888     888 8888888b.  888b    888  * 
@@ -37,13 +38,11 @@
 
 namespace saturn
 {
-
-s32 divide( s32 num, s32 den );
-
-u32 sqroot( u32 num );
-
-s32 modulus( s32 num, s32 den );
-
+    saturn::s32 divide( saturn::s32 num, saturn::s32 den );
+    
+    saturn::u32 sqroot( saturn::u32 num );
+    
+    saturn::s32 modulus( saturn::s32 num, saturn::s32 den );
 }
 
 

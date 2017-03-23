@@ -44,3 +44,7 @@ development experience with our work.
   sake. This is in addition to ISO C’s reservation of symbols starting with an
   underscore followed by a capital letter, and ISO C++’s reservation of symbols
   starting with a double underscore.
+- Saturn has a Simplified & Segregated Working Memory Model – a minimum of
+  space is reserved towards the end of IWRAM for things required by hardware,
+  with the remainder left entirely to static code/data and a full decrementing
+  user stack. Likewise, the entirety of EWRAM is reserved for the program heap.

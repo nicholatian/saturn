@@ -38,7 +38,7 @@ int main( )
 {
     if(saturn::init( ))
     {
-        bios::halt( );
+        for(;;);
     }
     
     while(!saturn::mainloop( ))
