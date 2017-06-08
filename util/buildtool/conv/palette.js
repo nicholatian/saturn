@@ -101,7 +101,7 @@ const getValue = (string) => {
 
 module.exports = (file) => {
     console.log('Converting'.red + '      ' + file.grey + '...')
-    const lines = fs.readFileSync(file, 'utf8').replace('\r', '').split('\n')
+    const lines = fs.readFileSync(file, 'utf8').split(endl)
     let   out   = []
     // Parse the input file and save it as a list of colour values
     for(let i = 0; i < lines.length; i++) {
@@ -125,8 +125,13 @@ module.exports = (file) => {
             out[indexes[i2]] = value
         }
     }
+    if(process.platform === 'win32') {
+        var pathRegexp = /.*\\/g
+    } else {
+        var pathRegexp = /.*\//g
+    }
     // Convert the saved values to assembly text
-    let sym = file.replace(/.*\//g, '').replace(/[^\w_]/g, '_').replace(
+    let sym = file.replace(pathRegexp, '').replace(/[^\w_]/g, '_').replace(
         '_npal', '') + 'Pal'
     let asm = '.file "' + file + '"' + endl + '.ident "AS: (devkitARM release'
         + '46) 2.27"' + endl + endl + '.section .rodata' + endl + '.balign 4,'
@@ -139,7 +144,7 @@ module.exports = (file) => {
         asm += '    .hword ' + out[i].toString() + endl
     }
     const asmFile = path.join(cfg.buildDir, 'data', 'npal',
-        file.replace(/.*\//g, '')).replace(/\.npal$/, '.s')
+        file.replace(pathRegexp, '')).replace(/\.npal$/, '.s')
     fs.writeFileSync(asmFile, asm, 'utf8')
     try {
         const opts = cfg.sFlags.concat(['-o', asmFile.replace(/\.s$/, '.o'),

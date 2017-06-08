@@ -33,31 +33,31 @@
 
 const fs   = require('fs')
 const os   = require('os')
+const path = require('path')
 const endl = os.EOL
 
 const colour = require('./buildtool/colour')
 
 let didClean = false
 
-const rmrf = (path) => {
-    var files = []
-    if( fs.existsSync(path) ) {
-        files = fs.readdirSync(path)
-        files.forEach(function(file,index){
-            var curPath = path + "/" + file
+const rmrf = (filePath) => {
+    let files = []
+    if(fs.existsSync(filePath)) {
+        files = fs.readdirSync(filePath)
+        files.forEach(function(file, index) {
+            var curPath = path.join(filePath, file)
             if(fs.lstatSync(curPath).isDirectory()) { // recurse
                 rmrf(curPath)
             } else { // delete file
                 fs.unlinkSync(curPath)
             }
         })
-        fs.rmdirSync(path)
+        fs.rmdirSync(filePath)
     }
-};
+}
 
 const clean = () => {
     console.log('Cleaning'.white + ' the build files'.grey + '...')
-    const path = require('path')
     rmrf(path.join(os.tmpdir(), 'saturn-buildtool'))
     return 0
 };
@@ -81,7 +81,6 @@ const main = (args) => {
             return
         }
     }, 50)
-    const path    = require('path')
     const cfg     = require('./buildtool/config')
     const foreman = require('./buildtool/foreman')
     const mkdirp  = require('./buildtool/mkdirp')
@@ -124,7 +123,6 @@ const main = (args) => {
 };
 
 const finishup = () => {
-    const path   = require('path')
     const chproc = require('child_process')
     const cfg    = require('./buildtool/config')
     const walk   = require('./buildtool/walk')

@@ -43,6 +43,10 @@ var exports = module.exports = {}
 exports.metadata  = {}
 exports.toolchain = {}
 
+if(typeof process.env.DEVKITARM === 'undefined') {
+    throw new Error('the DEVKITARM variable is not defined on your system.')
+}
+
 const tcPrefix = path.join(process.env.DEVKITARM, 'bin', 'arm-none-eabi-')
 
 exports.metadata.title    = userconf.title
