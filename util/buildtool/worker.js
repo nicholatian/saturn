@@ -41,8 +41,13 @@ const conv   = require('./conv')
 const cc = (file, debug) => {
     try {
         console.log('Compiling'.cyan + '       ' + file.grey + '...')
+        if(process.platform === 'win32') {
+            var pathRegexp = /\\/g
+        } else {
+            var pathRegexp = /\//g
+        }
         const options = cfg.cFlags.concat([file, '-o', path.join(cfg.buildDir,
-            'code', file.replace(/\//g, '+').replace(
+            'code', file.replace(pathRegexp, '+').replace(
             /\.(asm|c|cc|cpp|cxx|c\+\+|s)$/, '.o'))])
         chproc.execFileSync(cfg.toolchain.cCompiler, options, {
             cwd: process.cwd(),
@@ -57,8 +62,13 @@ const cc = (file, debug) => {
 const cxx = (file, debug) => {
     try {
         console.log('Compiling'.blue + '       ' + file.grey + '...')
+        if(process.platform === 'win32') {
+            var pathRegexp = /\\/g
+        } else {
+            var pathRegexp = /\//g
+        }
         const options = cfg.cxxFlags.concat([file, '-o', path.join(
-            cfg.buildDir, 'code', file.replace(/\//g, '+').replace(
+            cfg.buildDir, 'code', file.replace(pathRegexp, '+').replace(
             /\.(asm|c|cc|cpp|cxx|c\+\+|s)$/, '.o'))])
         chproc.execFileSync(cfg.toolchain.cxxCompiler, options, {
             cwd: process.cwd(),
@@ -73,8 +83,13 @@ const cxx = (file, debug) => {
 const as = (file) => {
     try {
         console.log('Assembling'.green + '      ' + file.grey + '...')
+        if(process.platform === 'win32') {
+            var pathRegexp = /\\/g
+        } else {
+            var pathRegexp = /\//g
+        }
         const options = cfg.sFlags.concat(['-o', path.join(cfg.buildDir,
-            'code', file.replace(/\//g, '+').replace(
+            'code', file.replace(pathRegexp, '+').replace(
             /\.(asm|c|cc|cpp|cxx|c\+\+|s)$/, '.o')), file])
         chproc.execFileSync(cfg.toolchain.assembler, options, {
             cwd: process.cwd(),
@@ -116,20 +131,25 @@ const grit = (file, depth, tiled, algo, reduce) => {
     } else {
         flags.push('-mR!')
     }
+    if(process.platform === 'win32') {
+        var pathRegexp = /.*\\/g
+    } else {
+        var pathRegexp = /.*\//g
+    }
     flags.push('-o' + path.join(cfg.buildDir, 'data', 'image',
-        file.replace(/.*\//g, '')) + '.s')
+        file.replace(pathRegexp, '')) + '.s')
     try {
         console.log('Transmogrifying'.yellow + ' ' + file.grey + '...')
-        let options = [file.replace(process.cwd() + '/', '')]
+        let options = [file.replace(process.cwd() + path.sep, '')]
         options = options.concat(cfg.gritFlags, flags)
         chproc.execFileSync(cfg.toolchain.grit, options, {
             cwd: process.cwd(),
             encoding: 'utf8'
         })
         const opts2 = cfg.sFlags.concat(['-o', path.join(cfg.buildDir, 'data',
-            'image', file.replace(/.*\//g, '')).replace(
+            'image', file.replace(pathRegexp, '')).replace(
             /\.png$/, '.o'), path.join(cfg.buildDir,
-            'data', 'image', file.replace(/.*\//g, '')) + '.s'])
+            'data', 'image', file.replace(pathRegexp, '')) + '.s'])
         chproc.execFileSync(cfg.toolchain.assembler, opts2, {
             cwd: process.cwd(),
             encoding: 'utf8'
