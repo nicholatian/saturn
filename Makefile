@@ -34,10 +34,10 @@
 default: engine clean tests clean
 
 engine:
-	@env node 'util/buildtool.js' 'build.json'
+	@node 'util/buildtool.js' 'build.json'
 
 tests:
-	@env node 'util/buildtool.js' 'test/build.json'
+	@node 'util/buildtool.js' 'test/build.json'
 
 clean:
-	@env node 'util/buildtool.js' '--clean'
+	@node 'util/buildtool.js' '--clean'
