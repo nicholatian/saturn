@@ -36,103 +36,138 @@
 
 namespace saturn
 {
-    enum class ErrorCat : saturn::u32
-    {
-        Success = 0,
-        Unknown,
-        System,
-        Video,
-        Audio,
-        IO,
-        Network,
-        Emu
-    };
+
+enum class ErrorCat : saturn::u32
+{
+    Success = 0,
+    Unknown,
+    System,
+    Video,
+    Audio,
+    IO,
+    Network,
+    Emu
+};
+
+namespace ErrorEntrySystem
+{
+
+enum : saturn::u32
+{
+    Success = 0,
+    Unknown,
+    LogicError,
+    InvalidArgument,
+    DomainError,
+    LengthError,
+    OutOfRange,
+    RuntimeError,
+    RangeError,
+    OverflowError,
+    UnderflowError
+};
+
+}
+
+namespace ErrorEntryVideo
+{
+
+enum : saturn::u32
+{
+    Success = 0,
+    Unknown,
+    VramExhausted,
+    OamExhausted
+};
+
+}
+
+namespace ErrorEntryAudio
+{
+
+enum : saturn::u32
+{
+    Success = 0
+};
+
+}
+
+namespace ErrorEntryIO
+{
+
+enum : saturn::u32
+{
+    Success = 0
+};
+
+}
+
+namespace ErrorEntryNetwork
+{
+
+enum : saturn::u32
+{
+    Success = 0
+};
+
+}
+
+namespace ErrorEntryEmu
+{
+
+enum : saturn::u32
+{
+    Success = 0
+};
+
+}
+
+namespace ErrorEntryUnknown
+{
+
+enum : saturn::u32
+{
+    Success = 0
+};
+
+}
+
+class Error
+{
+public:
+    Error( )
+        : raw(0x0)
+        { }
+    Error( ErrorCat category, saturn::u32 entry )
+        : raw((static_cast<saturn::u32>(category) & 0xFFF) |
+            ((entry & 0xFFFFF) << 20))
+        { }
+    ~Error( ) { }
     
-    using ErrorEntry = saturn::u32;
-    
-    enum class ErrorEntrySystem : saturn::u32
+    bool operator!( )
     {
-        Success = 0,
-        Unknown,
-        LogicError,
-        InvalidArgument,
-        DomainError,
-        LengthError,
-        OutOfRange,
-        RuntimeError,
-        RangeError,
-        OverflowError,
-        UnderflowError
-    };
+        return raw == 0;
+    }
     
-    enum class ErrorEntryVideo : saturn::u32
+    saturn::u32 operator~( )
     {
-        Success = 0,
-        Unknown,
-        VramExhausted,
-        OamExhausted
-    };
+        return raw;
+    }
     
-    enum class ErrorEntryAudio : saturn::u32
+    bool operator==( Error err )
     {
-        
-    };
+        return raw == err.raw;
+    }
     
-    enum class ErrorEntryIO : saturn::u32
+    bool operator!=( Error err )
     {
-        
-    };
+        return raw != err.raw;
+    }
     
-    enum class ErrorEntryNetwork : saturn::u32
-    {
-        
-    };
-    
-    enum class ErrorEntryEmu : saturn::u32
-    {
-        
-    };
-    
-    enum class ErrorEntryUnknown : saturn::u32
-    {
-        
-    };
-    
-    class Error
-    {
-    public:
-        Error( )
-            : raw(0x0)
-            { }
-        Error( ErrorCat category, ErrorEntry entry )
-            : raw((static_cast<saturn::u32>(category) & 0xFFF)
-                  | (static_cast<saturn::u32>(entry) & 0xFFFFF))
-            { }
-        ~Error( ) { }
-        
-        bool operator!( )
-        {
-            return raw == 0;
-        }
-        
-        saturn::u32 operator~( )
-        {
-            return raw;
-        }
-        
-        bool operator==( Error err )
-        {
-            return raw == err.raw;
-        }
-        
-        bool operator!=( Error err )
-        {
-            return raw != err.raw;
-        }
-        
-    private:
-        const saturn::u32 raw;
-    };
+private:
+    const saturn::u32 raw;
+};
+
 }
 
 
