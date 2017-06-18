@@ -35,19 +35,78 @@
 namespace saturn
 {
 
-using u8  = unsigned char;
-using u16 = unsigned short;
-using u32 = unsigned int;
-using u64 = unsigned long long;
-using s8  = signed char;
-using s16 = signed short;
-using s32 = signed int;
-using s64 = signed long long;
+using u8   = unsigned char;
+using u16  = unsigned short;
+using u32  = unsigned int;
+using s8   = signed char;
+using s16  = signed short;
+using s32  = signed int;
+
+using fu8  = u32;
+using fu16 = u32;
+using fu32 = u32;
+using fs8  = s32;
+using fs16 = s32;
+using fs32 = s32;
+
+using lu8  = u32;
+using lu16 = u32;
+using lu32 = u32;
+using ls8  = s32;
+using ls16 = s32;
+using ls32 = s32;
+
+using vu8   = volatile u8;
+using vu16  = volatile u16;
+using vu32  = volatile u32;
+using vumax = volatile umax;
+using vs8   = volatile s8;
+using vs16  = volatile s16;
+using vs32  = volatile s32;
+using vsmax = volatile smax;
+
+using vfu8  = volatile u32;
+using vfu16 = volatile u32;
+using vfu32 = volatile u32;
+using vfs8  = volatile s32;
+using vfs16 = volatile s32;
+using vfs32 = volatile s32;
+
+using vlu8  = volatile u32;
+using vlu16 = volatile u32;
+using vlu32 = volatile u32;
+using vls8  = volatile s32;
+using vls16 = volatile s32;
+using vls32 = volatile s32;
 
 template<int s> struct _tmp_ptri;
 template<> struct _tmp_ptri<2> { using type = u16; };
 template<> struct _tmp_ptri<4> { using type = u32; };
-template<> struct _tmp_ptri<8> { using type = u64; };
+
+if constexpr( sizeof(void*) <= 4)
+{
+    using umax = unsigned int;
+    using smax = signed int;
+}
+else
+{
+    using u64   = unsigned long long;
+    using umax  = unsigned long long;
+    using s64   = signed long long;
+    using smax  = signed long long;
+    using fu64  = u64;
+    using fs64  = s64;
+    using lu64  = u64;
+    using ls64  = s64;
+    using vu64  = volatile u64;
+    using vs64  = volatile s64;
+    using vfu64 = volatile u64;
+    using vfs64 = volatile s64;
+    using vlu64 = volatile u64;
+    using vls64 = volatile s64;
+    
+    template<> struct _tmp_ptri<8> { using type = u64; };
+}
 
 using ptri = typename _tmp_ptri<sizeof(void*)>::type;
 
